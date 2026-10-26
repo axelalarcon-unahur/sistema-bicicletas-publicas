@@ -1,0 +1,22 @@
+#include <string>
+
+using namespace std;
+
+class Bicicleta{
+private:
+    int biciId;
+    string codigoEstacion;
+    string tipo;
+    string estado;
+    int kilometros;
+
+public:
+    Bicicleta(int biciId, string codigoEstacion,
+    string tipo,string estado,int kilometros);
+    
+    int getBiciId();
+    string getCodigoEstacion();
+    string getTipo();
+    string getEstado();
+    int getKilometros();
+};
