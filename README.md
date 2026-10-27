@@ -12,17 +12,24 @@ Sí se permite usar std::string y la STL para leer archivos y para tareas auxili
 ```text
 │
 ├── include/
-│   ├── Estacion.h
-│   ├── Viaje.h
+│   ├── Bicicleta.h
 │   ├── ColaEspera.h
+│   ├── ColaPrioridad.h
+│   ├── Estacion.h
+│   ├── ListaBicicletas.h
+│   ├── ListaViajes.h
 │   ├── MinHeap.h
-│
+│   ├── Viaje.h
 ├── src/
-│   ├── Estacion.cpp
-│   ├── Viaje.cpp
+│   ├── Bicicleta.cpp
 │   ├── ColaEspera.cpp
+│   ├── ColaPrioridad.cpp
+│   ├── Estacion.cpp
+│   ├── ListaBicicletas.cpp
+│   ├── ListaViajes.cpp
 │   ├── MinHeap.cpp
-│   └── main.cpp
+│   ├── Viaje.cpp
+│   └── Main.cpp
 │
 ├── README.md
 └── .gitignore
