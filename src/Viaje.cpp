@@ -1,10 +1,10 @@
 #include "Viaje.h"
 
-Viaje::Viaje(int idViaje, int idBicicleta, string dniUser,
+Viaje::Viaje(int idViaje, int idBicicleta, int dniUser,
              string estacionDeOrigen, string estacionDestino,
              int fecha, int duracionMin)
             {
-    this->idViaje = idViaje; // permite acceder al atributo
+    this->idViaje = idViaje; 
     this->idBicicleta = idBicicleta;
     this->dniUser = dniUser;
     this->estacionDeOrigen = estacionDeOrigen;
@@ -18,7 +18,7 @@ int Viaje::getViajeId() {
 int Viaje::getBiciId() {
     return idBicicleta;
 }
-string Viaje::getDniUsuario() {
+int Viaje::getDniUsuario() {
     return dniUser;
 }
 string Viaje::getEstacionDeOrigen() {

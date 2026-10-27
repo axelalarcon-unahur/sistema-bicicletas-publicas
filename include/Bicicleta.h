@@ -1,3 +1,5 @@
+#ifndef BICICLETA_H
+#define BICICLETA_H
 #include <string>
 
 using namespace std;
@@ -20,3 +22,4 @@ public:
     string getEstado();
     int getKilometros();
 };
+#endif
