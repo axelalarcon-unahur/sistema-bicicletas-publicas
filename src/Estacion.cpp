@@ -1,4 +1,5 @@
 #include "Estacion.h"
+#include "ListaEstaciones.h"
 
 Estacion::Estacion(string codigo, string nombre, string barrio, int capacidadAnclajes, int bicisDisponibles) {
     this->codigo = codigo;
@@ -6,6 +7,11 @@ Estacion::Estacion(string codigo, string nombre, string barrio, int capacidadAnc
     this->barrio = barrio;
     this->capacidadAnclajes = capacidadAnclajes;
     this->bicisDisponibles = bicisDisponibles;
+    this->adyacentes = new ListaEstaciones();
+}
+
+Estacion::~Estacion() {
+    delete adyacentes;
 }
 
 string Estacion::getCodigo() {
@@ -26,4 +32,16 @@ int Estacion::getCapacidadAnclajes() {
 
 int Estacion::getBicisDisponibles() {
     return bicisDisponibles;
+}
+
+ListaEstaciones* Estacion::getAdyacentes() {
+    return adyacentes;
+}
+
+double Estacion::getOcupacion() {
+    return ((double) bicisDisponibles) / capacidadAnclajes;
+}
+
+void Estacion::agregarAdyacente(Estacion* estacion) {
+    adyacentes->agregarEstacion(estacion);
 }
