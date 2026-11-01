@@ -17,6 +17,7 @@ Sí se permite usar std::string y la STL para leer archivos y para tareas auxili
 │   ├── ColaPrioridad.h
 │   ├── Estacion.h
 │   ├── ListaBicicletas.h
+│   ├── ListaEstaciones.h
 │   ├── ListaViajes.h
 │   ├── MinHeap.h
 │   ├── Viaje.h
@@ -26,6 +27,7 @@ Sí se permite usar std::string y la STL para leer archivos y para tareas auxili
 │   ├── ColaPrioridad.cpp
 │   ├── Estacion.cpp
 │   ├── ListaBicicletas.cpp
+│   ├── ListaEstaciones.cpp
 │   ├── ListaViajes.cpp
 │   ├── MinHeap.cpp
 │   ├── Viaje.cpp
