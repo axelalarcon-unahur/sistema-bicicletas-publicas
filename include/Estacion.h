@@ -17,6 +17,7 @@ private:
 
 public:
     Estacion(string codigo, string nombre, string barrio, int capacidadAnclajes, int bicisDisponibles);
+    Estacion();
     ~Estacion();
     string getCodigo();
     string getNombre();
