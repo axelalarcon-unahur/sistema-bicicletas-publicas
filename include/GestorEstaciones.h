@@ -15,12 +15,21 @@ private:
 
     int funcionHash(string codigo);
     bool hayEstacion(int posicion);
-    
+    Estacion** listarEstaciones();
+    void agregarPrevio(Estacion* estacion, Estacion* previo, Estacion** previos);
+    Estacion* buscarPrevio(Estacion* estacion, Estacion** previos);
+    ListaEstaciones* caminoEncontrado(Estacion* origen, Estacion* destino, Estacion** previos);
+
 public:
     GestorEstaciones(int cantidadInicial);
     ~GestorEstaciones();
-    void agregarEstacion(Estacion* estacion);
     Estacion* buscarEstacion(string codigo);
+    int getCantidadEstaciones();
+    void agregarEstacion(Estacion* estacion);
     void eliminarEstacion(string codigo);
+    Estacion** estacionesOrdenadasPorCapacidad();
+    Estacion** estacionesOrdenadasPorDisponibilidad();
+    ListaEstaciones* estacionesConOcupacionBaja();
+    ListaEstaciones* caminoMasCorto(string origen, string destino);
 };
 #endif

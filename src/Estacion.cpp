@@ -56,8 +56,8 @@ ListaEstaciones* Estacion::getAdyacentes() {
     return adyacentes;
 }
 
-double Estacion::getOcupacion() {
-    return ((double) bicisDisponibles) / capacidadAnclajes;
+double Estacion::getPorcentajeOcupacion() {
+    return ((double) bicisDisponibles) / capacidadAnclajes * 100;
 }
 
 void Estacion::agregarAdyacente(Estacion* estacion) {

@@ -26,7 +26,7 @@ public:
     int getBicisDisponibles();
     int getFaltantes();
     ListaEstaciones* getAdyacentes();
-    double getOcupacion();
+    double getPorcentajeOcupacion();
     void agregarAdyacente(Estacion* estacion);
 };
 #endif
