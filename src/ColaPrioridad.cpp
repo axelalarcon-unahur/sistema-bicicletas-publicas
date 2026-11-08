@@ -19,22 +19,15 @@ int ColaPrioridadBicicletas::calcularPrioridad(Bicicleta* unaBici){
     }
 }
 void ColaPrioridadBicicletas::insertarUnaBici(Bicicleta unaBici){
-    // verifico que la bicicleta este averiada
     if(unaBici.getEstado() != "Averiada"){
         return;
     }
-    // verifico que haya espacio en el heap
     if(cantBicicletasGuardadas == cantMax){
         return;
     }
-    // creo la copia dinamica de la bicicleta
     heap[cantBicicletasGuardadas] = new Bicicleta(unaBici);
-    //guardo la posicion en la que insertamos
     int i = cantBicicletasGuardadas;
     cantBicicletasGuardadas++;
-    /*
-    ------------ SUBO LA BICICLETA SI TIENE PRIORIDAD -----------
-    */
    while(i > 0){
         int padre = (i-1) / 2;
         if(calcularPrioridad(heap[i]) < calcularPrioridad(heap[padre])){
@@ -51,32 +44,27 @@ void ColaPrioridadBicicletas::insertarUnaBici(Bicicleta unaBici){
 }
 bool ColaPrioridadBicicletas::extraerBicicletaConMayorPrioridad(Bicicleta& bici){
     if(cantBicicletasGuardadas == 0){
-        return false; // no hay bicicletas guardadas
+        return false; 
     }
-    bici = *heap[0]; // guardo la mayor prioridad -> raiz
-    delete heap[0] ; // libero la que estaba en la raiz
-    cantBicicletasGuardadas --; // si era la unica bici ya terminamos.
+    bici = *heap[0]; 
+    delete heap[0] ; 
+    cantBicicletasGuardadas --; 
     if(cantBicicletasGuardadas == 0){
         return true;
     } 
-    //Movemos el ultimo elemento a la raiz
     heap[0] = heap[cantBicicletasGuardadas];
     heap[cantBicicletasGuardadas] = nullptr;
     int i = 0;
-    // --------- REACOMODAMOS HACIA ABAJO -----------------
     while(true){
         int hijoIzquierdo = 2 * i +1;
         int hijoDerecho = 2 * i + 2;
         int menor = i;
-        // comparamos con el hijo izquierdo
         if(hijoIzquierdo < cantBicicletasGuardadas && calcularPrioridad(heap[hijoIzquierdo]) < calcularPrioridad(heap[menor])){
             menor = hijoIzquierdo;
         }
-        // comparo con el hijo izquierdo
         if(hijoDerecho < cantBicicletasGuardadas && calcularPrioridad(heap[hijoDerecho]) < calcularPrioridad(heap[menor])){
             menor = hijoDerecho;
         }
-        // si el padre es el menor -> terminamos
         if(menor == i){
             break;
         }
@@ -88,7 +76,6 @@ bool ColaPrioridadBicicletas::extraerBicicletaConMayorPrioridad(Bicicleta& bici)
     return true;
 }
 ColaPrioridadBicicletas::~ColaPrioridadBicicletas() {
-    // tenemos que liberar cada bicicleta antes de liberar el arreglo
     for(int i= 0; i < cantBicicletasGuardadas;i++){
         delete heap[i];
     }

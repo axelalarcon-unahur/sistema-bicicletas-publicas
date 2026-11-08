@@ -7,14 +7,7 @@ private:
     Bicicleta** heap; 
     int cantBicicletasGuardadas;
     int cantMax;
-
     int calcularPrioridad(Bicicleta* bici);
-    /*
-        ¿Porque el metodo privado?
-            - Es una operacion auxiliar que solo
-            vamos a utilizar internamente.
-    */
-    
 public:
     ColaPrioridadBicicletas(int cantMax);
     ~ColaPrioridadBicicletas();

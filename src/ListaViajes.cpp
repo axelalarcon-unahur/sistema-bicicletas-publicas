@@ -1,5 +1,5 @@
 #include "ListaViajes.h"
-
+#include <iostream>
 NodoViaje::NodoViaje(Viaje viaje) : dato(viaje) {
     siguiente = nullptr;
 }
@@ -26,7 +26,6 @@ void ListaViajes::agregarViaje(Viaje viaje) {
         actual->siguiente = nuevo;
     }
 }
-// 1) Calcular la cantidad de viajes que salieron de una estación dentro de un rango de fechas.
 int ListaViajes::cantViajesPorEstacion(string codigoEstacion,int fechaInicio, int fechaFin){
     int cantViajes = 0; 
     NodoViaje* actual = primero; 
@@ -39,27 +38,14 @@ int ListaViajes::cantViajesPorEstacion(string codigoEstacion,int fechaInicio, in
     }
     return cantViajes;
 }
-// 2) Buscar todos los viajes de un usuario dado su DNI y mostrar el total de minutos pedaleados
-int ListaViajes::calcularMinutosPorUsuario(int dniUser){
-    int totalDeMinutos = 0;
-    NodoViaje* actual = primero;
-    while(actual!=nullptr){
-        if(actual->dato.getDniUsuario()==dniUser){
-            totalDeMinutos = totalDeMinutos + actual->dato.getDuracionMin();
+int ListaViajes::minutosPedaleadosPorUsuarioSegunViajes(int dniUsuario){
+    int cantMinutos = 0;
+    NodoViaje* nodoActual = primero;
+    while(nodoActual!= nullptr){
+        if(nodoActual->dato.getDniUsuario() == dniUsuario){
+            cantMinutos = cantMinutos + nodoActual->dato.getDuracionMin();
         }
-        actual = actual->siguiente;
+        nodoActual = nodoActual->siguiente;
     }
-    return totalDeMinutos;
-}
-// buscar todos los viajes de un usuario a partir de su DNI
-ListaViajes ListaViajes::viajesHechosPorUnUserConDni(int dni){
-    NodoViaje* actual = primero;
-    ListaViajes nuevaLista;
-    while(actual!= nullptr){
-        if(actual->dato.getDniUsuario()== dni){
-            nuevaLista.agregarViaje(actual->dato);
-    }
-    actual = actual->siguiente;
- }
-    return nuevaLista;
+    return cantMinutos;
 }

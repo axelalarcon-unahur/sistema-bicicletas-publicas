@@ -10,10 +10,9 @@ class ListaViajes {
 private:
     NodoViaje* primero; 
 public:
-    ListaViajes(); // contructor
-    ~ListaViajes(); // lo utilizamos para liberar memoria
+    ListaViajes(); 
+    ~ListaViajes(); 
     void agregarViaje(Viaje viaje); 
     int cantViajesPorEstacion(string codigoEstacion, int fechaInicial, int fechaFin);
-    int calcularMinutosPorUsuario(int dniUser); 
-    ListaViajes viajesHechosPorUnUserConDni(int dni);
+    int minutosPedaleadosPorUsuarioSegunViajes(int dniUsuario);
 };
