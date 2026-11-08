@@ -12,5 +12,5 @@ public:
     ListaBicicletas(); 
     ~ListaBicicletas();
     void agregarBicicleta(Bicicleta bici); 
-    ListaBicicletas cantBicicletasSuperadasPorKm(int kilometros);
+    void cantBicicletasSuperadasPorKm(int kilometros);
 };

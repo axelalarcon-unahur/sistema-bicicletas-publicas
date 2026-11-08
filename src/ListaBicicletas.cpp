@@ -28,15 +28,15 @@ void ListaBicicletas::agregarBicicleta(Bicicleta bici){
     actual->siguiente = nuevo;
     }
 }
-// 3) Listar las bicicletas con más de X kilómetros, donde X lo ingresa el usuario, para enviarlas a revisión.
-ListaBicicletas ListaBicicletas::cantBicicletasSuperadasPorKm(int kilometros){
+void ListaBicicletas::cantBicicletasSuperadasPorKm(int kilometros){
     NodoBicicleta* actual = primero;
-    ListaBicicletas nuevaLista;
     while(actual!=nullptr){
         if(actual->dato.getKilometros()>kilometros){
-            nuevaLista.agregarBicicleta(actual->dato);
+           cout<< "El id de la bicicleta es : " << actual->dato.getBiciId()<<endl;
+           cout<< "Estacion :" << actual->dato.getCodigoEstacion()<<endl;
+           cout<< "Estado : " << actual->dato.getEstado()<<endl;
+           cout<< "Kilometros : " << actual->dato.getKilometros()<<endl;
         }
         actual = actual->siguiente;
     }
-    return nuevaLista;
 }
