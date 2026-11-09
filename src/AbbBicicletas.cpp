@@ -59,7 +59,7 @@ void AbbBicicletas::listarInOrdenRecursivo(NodoABBBicicletas* actual){
         cout << "Tipo: " << actual->dato.getTipo() << endl;
         cout << "Estado: " << actual->dato.getEstado() << endl;
         cout << "Kilometros: " << actual->dato.getKilometros() << endl;
-        listarInOrdenRecursivo(actual->izquierdo);
+        listarInOrdenRecursivo(actual->derecho);
     }
 }
 int AbbBicicletas::cantBicicletasAveriadas(){
