@@ -15,12 +15,12 @@ public:
     GestorEstaciones(int cantidadInicial);
     ~GestorEstaciones();
     void mostrarInformacion(string codigo);
-    int getCantidadEstaciones();
     void agregarEstacion(Estacion* estacion);
     void eliminarEstacion(string codigo);
     void estacionesOrdenadasPorCapacidad();
     void estacionesOrdenadasPorDisponibilidad();
     void estacionesConOcupacionBaja();
     void caminoMasCorto(string origen, string destino);
+    void agregarCiclovia(string a, string b);
 };
 #endif

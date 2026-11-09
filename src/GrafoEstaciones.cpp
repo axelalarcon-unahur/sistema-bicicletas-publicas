@@ -8,6 +8,7 @@ ListaEstaciones* GrafoEstaciones::caminoMasCorto(Estacion* origen, Estacion* des
 
     ColaEstaciones *c = new ColaEstaciones();
     c->encolar(origen);
+    origen->visitar();
 
     while (!c->estaVacia()) {
         Estacion* actual = c->desencolar();
@@ -24,6 +25,7 @@ ListaEstaciones* GrafoEstaciones::caminoMasCorto(Estacion* origen, Estacion* des
             if (!adyacente->isVisitada()) {
                 c->encolar(adyacentesActual->getEstacion(i));
                 adyacente->setPadre(actual);
+                adyacente->visitar();
             }
         }
     }
@@ -35,18 +37,23 @@ ListaEstaciones* GrafoEstaciones::caminoMasCorto(Estacion* origen, Estacion* des
 }
 
 ListaEstaciones* GrafoEstaciones::caminoEncontrado(Estacion* destino, int cantidadEstaciones) {
+    if (!destino->isVisitada()) {
+        return nullptr;
+    }
+    
     Estacion** aux = new Estacion*[cantidadEstaciones];
     int i = 0;
     Estacion* actual = destino;
     ListaEstaciones* resultado = new ListaEstaciones();
     
-    while (actual->getPadre() != nullptr) {
+    while (actual != nullptr) {
         aux[i++] = actual;
         actual = actual->getPadre();
     }
 
-    while (i >= 0) {
-        resultado->agregarEstacion(aux[i--]);
+    // ultima posicion no fue usada, por lo que hay que decrementar i antes de agregar
+    while (--i >= 0) {
+        resultado->agregarEstacion(aux[i]);
     }   
 
     delete[] aux;
