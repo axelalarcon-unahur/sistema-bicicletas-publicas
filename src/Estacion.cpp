@@ -8,6 +8,8 @@ Estacion::Estacion(string codigo, string nombre, string barrio, int capacidadAnc
     this->capacidadAnclajes = capacidadAnclajes;
     this->bicisDisponibles = bicisDisponibles;
     this->adyacentes = new ListaEstaciones();
+    visitada = false;
+    padre = nullptr;
 }
 
 // usado para tombstones en hash
@@ -18,6 +20,8 @@ Estacion::Estacion() {
     capacidadAnclajes = 1;
     bicisDisponibles = 1;
     adyacentes = new ListaEstaciones();
+    visitada = false;
+    padre = nullptr;
 }
 
 Estacion::~Estacion() {
@@ -62,4 +66,24 @@ double Estacion::getPorcentajeOcupacion() {
 
 void Estacion::agregarAdyacente(Estacion* estacion) {
     adyacentes->agregarEstacion(estacion);
+}
+
+void Estacion::visitar() {
+    visitada = true;
+}
+
+void Estacion::setPadre(Estacion* padre) {
+    this->padre = padre;
+}
+
+void Estacion::resetearAtributosBusqueda() {
+    visitada = false;
+    padre = nullptr;
+}
+
+Estacion* Estacion::getPadre() {
+    return padre;
+}
+bool Estacion::isVisitada() {
+    return visitada;
 }
