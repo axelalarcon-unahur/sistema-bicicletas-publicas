@@ -5,7 +5,7 @@ using namespace std;
 ColaEspera::ColaEspera(){
     // ambos null porque cuando arrancamos no hay ningun usuario
     primero = nullptr;
-    ultimo == nullptr;
+    ultimo = nullptr;
 }
 ColaEspera::~ColaEspera(){
     while(primero!=nullptr){
@@ -16,7 +16,9 @@ ColaEspera::~ColaEspera(){
     ultimo = nullptr;
 }
 void ColaEspera::encolar(int dni){
-    NodoEspera* nuevo = new NodoEspera(dni);
+    NodoEspera* nuevo = new NodoEspera;
+    nuevo->dniUser = dni;
+    nuevo->siguiente = nullptr;
     if(primero ==  nullptr){
         primero = nuevo;
         ultimo = nuevo;

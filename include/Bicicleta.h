@@ -15,7 +15,6 @@ private:
 public:
     Bicicleta(int biciId, string codigoEstacion,
     string tipo,string estado,int kilometros);
-    
     int getBiciId();
     string getCodigoEstacion();
     string getTipo();
