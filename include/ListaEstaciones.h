@@ -1,16 +1,6 @@
 #ifndef LISTA_ESTACIONES_H
 #define LISTA_ESTACIONES_H
-#include "Estacion.h"
-
-struct NodoEstacion{
-    Estacion* dato;
-    NodoEstacion* siguiente;
-
-    NodoEstacion(Estacion* dato) {
-        this->dato = dato;
-        this->siguiente = nullptr;
-    }
-};
+#include "NodoEstacion.h"
 
 class ListaEstaciones {
 private:
@@ -21,6 +11,8 @@ public:
     ListaEstaciones();
     ~ListaEstaciones();
     void agregarEstacion(Estacion* estacion);
+    void eliminarEstacion(Estacion* estacion);
+    Estacion* getEstacion(int pos);
     int getLargo();
 };
 
