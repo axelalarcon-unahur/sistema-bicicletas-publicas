@@ -141,27 +141,32 @@ Se establece como criterio de prioridad para las bicicletas mecánicas averiadas
 │   ├── AbbBicicletas.h
 │   ├── Bicicleta.h
 │   ├── ColaEspera.h
+│   ├── ColaEstaciones.h
 │   ├── ColaPrioridad.h
 │   ├── Estacion.h
+│   ├── GestorEstaciones.h
 │   ├── ListaBicicletas.h
 │   ├── ListaEstaciones.h
 │   ├── ListaViajes.h
+│   ├── NodoEstacion.h
+│   ├── TablaHash.h
 │   ├── MinHeap.h
 │   ├── Viaje.h
 ├── src/
 │   ├── AbbBicicletas.cpp
 │   ├── Bicicleta.cpp
 │   ├── ColaEspera.cpp
+│   ├── ColaEstaciones.cpp
 │   ├── ColaPrioridad.cpp
 │   ├── Estacion.cpp
+│   ├── GestorEstaciones.cpp
+│   ├── GrafoEstaciones.cpp
 │   ├── ListaBicicletas.cpp
 │   ├── ListaEstaciones.cpp
 │   ├── ListaViajes.cpp
-│   └── Main.cpp
 │   ├── MinHeap.cpp
 │   ├── Viaje.cpp
 │   └── Main.cpp
-│
 ├── README.md
 └── .gitignore
 ```
