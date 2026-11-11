@@ -1,6 +1,7 @@
 #ifndef ESTACION_H
 #define ESTACION_H
 #include <string>
+#include "ColaEspera.h"
 
 using namespace std;
 
@@ -14,6 +15,7 @@ private:
     int capacidadAnclajes;
     int bicisDisponibles;
     ListaEstaciones* adyacentes;
+    ColaEspera* cola;
     bool visitada;
     Estacion* padre;
 
@@ -32,6 +34,8 @@ public:
     ListaEstaciones* getAdyacentes();
     double getPorcentajeOcupacion();
     void agregarAdyacente(Estacion* estacion);
+    int devolverBicicleta();
+    bool retirarBicicleta(int dni);
     void visitar();
     void setPadre(Estacion* padre);
     void resetearAtributosBusqueda();

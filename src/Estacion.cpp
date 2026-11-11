@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Estacion.h"
 #include "ListaEstaciones.h"
 
@@ -8,6 +9,7 @@ Estacion::Estacion(string codigo, string nombre, string barrio, int capacidadAnc
     this->capacidadAnclajes = capacidadAnclajes;
     this->bicisDisponibles = bicisDisponibles;
     this->adyacentes = new ListaEstaciones();
+    cola = new ColaEspera();
     visitada = false;
     padre = nullptr;
 }
@@ -20,6 +22,7 @@ Estacion::Estacion() {
     capacidadAnclajes = 1;
     bicisDisponibles = 1;
     adyacentes = new ListaEstaciones();
+    cola = new ColaEspera();
     visitada = false;
     padre = nullptr;
 }
@@ -79,6 +82,33 @@ void Estacion::setPadre(Estacion* padre) {
 void Estacion::resetearAtributosBusqueda() {
     visitada = false;
     padre = nullptr;
+}
+
+int Estacion::devolverBicicleta() {
+    // si hay usuario esperando, devuelve el dni del usuario 
+    if (!cola->estaVacia()) {
+        return cola->desencolar();
+    }
+    // si la estacion no esta llena, incrementa la cantidad
+    if (bicisDisponibles < capacidadAnclajes) {
+        bicisDisponibles++;
+    }
+
+    // -1 como señal de que ningún usuario tomó la bicicleta
+    return -1; 
+}
+
+// devuelve si el usuario recibio bicicleta o no 
+bool Estacion::retirarBicicleta(int dni) {
+    if (bicisDisponibles > 0) {
+        bicisDisponibles--;
+        return true;
+    }
+
+    else {
+        cola->encolar(dni);
+        return false;
+    }
 }
 
 Estacion* Estacion::getPadre() {
