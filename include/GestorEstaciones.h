@@ -22,5 +22,7 @@ public:
     void estacionesConOcupacionBaja();
     void caminoMasCorto(string origen, string destino);
     void agregarCiclovia(string a, string b);
+    void totalColisiones();
+    void factorDeCarga();
 };
 #endif

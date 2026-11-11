@@ -90,18 +90,19 @@ void GestorEstaciones::caminoMasCorto(string origen, string destino) {
 
     ListaEstaciones* estaciones = grafo->caminoMasCorto(inicio, fin, aux, tablaHash->getCantidadEstaciones());
 
+    cout << "--------------------------------------------" << endl;
     if (estaciones == nullptr) {
         cout << "No hay camino entre las estaciones " << origen << " y " << destino << "." << endl;
     }
     else {
-        cout << "--------------------------------------------" << endl;
-
         cout << inicio->getCodigo();
         for (int i = 1; i < estaciones->getLargo(); i++) {
             cout << " -> " << estaciones->getEstacion(i)->getCodigo();
         }
-        cout << endl << "--------------------------------------------" << endl;
+        cout << endl;
     }
+
+    cout << "--------------------------------------------" << endl;
 
     delete estaciones;
     delete[] aux;
@@ -118,4 +119,12 @@ void GestorEstaciones::agregarCiclovia(string a, string b) {
         inicio->agregarAdyacente(fin);
         fin->agregarAdyacente(inicio);
     }
+}
+
+void GestorEstaciones::totalColisiones() {
+    cout << "Colisiones totales: " << tablaHash->getTotalColisiones() << endl;;
+}
+
+void GestorEstaciones::factorDeCarga() {
+    cout << "Factor de Carga: " << tablaHash->getFactorCarga() << endl;
 }

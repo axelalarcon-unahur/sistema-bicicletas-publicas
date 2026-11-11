@@ -1,4 +1,6 @@
 #include "TablaHash.h"
+#include <iostream>
+using namespace std;
 /*
     IMPLEMENTACIÓN DE HASHING:
     - Hash Cerrado
@@ -11,7 +13,7 @@ TablaHash::TablaHash(int capacidadInicial) {
     cantidadEstaciones = 0;
     capacidad = capacidadInicial;
     tombstone = new Estacion();
-    MAX_FACTOR_CARGA = 0.9;
+    totalColisiones = 0;
 
     for (int i = 0; i < capacidadInicial; i++) {
         estaciones[i] = nullptr;
@@ -33,16 +35,43 @@ TablaHash::~TablaHash() {
 
 int TablaHash::funcionHash(string codigo) {
     int hash = 0;
-
-    for (int i = 0; i < codigo.length(); i++) {
-        hash += codigo[i] * 128;
+    
+    for (int i = 0; i < (int) codigo.length(); i++) {
+        hash = hash * 31 + codigo[i];
     }
-
+    
     return hash % capacidad;
 }
 
 bool TablaHash::hayEstacion(int posicion) {
     return estaciones[posicion] != nullptr && estaciones[posicion] != tombstone;
+}
+
+void TablaHash::cambiarCapacidad(int nuevaCapacidad) {
+    Estacion** vieja = estaciones;
+    int capacidadVieja = capacidad;
+    capacidad = nuevaCapacidad;
+    estaciones = new Estacion*[capacidad];
+    totalColisiones = 0;
+
+    for (int i = 0; i < capacidad; i++) {
+        estaciones[i] = nullptr;
+    }
+
+    for (int i = 0; i < capacidadVieja; i++) {
+        if (vieja[i] != nullptr && vieja[i] != tombstone) {
+            agregarEstacion(vieja[i]);
+            cantidadEstaciones--; // cada agregarEstacion() incrementa en 1
+        }
+    }
+
+    delete[] vieja;
+}
+
+void TablaHash::verificarCambioCapacidad() {
+    if (getFactorCarga() >= MAX_FACTOR_CARGA) {
+        cambiarCapacidad(capacidad * 1.5);
+    }
 }
 
 Estacion* TablaHash::buscarEstacion(string codigo) {
@@ -66,6 +95,7 @@ void TablaHash::agregarEstacion(Estacion* estacion) {
     while (hayEstacion(pos)) {
         pos = (hash + i) % capacidad;
         i++;
+        totalColisiones++;
     }
 
     estaciones[pos] = estacion;
@@ -90,46 +120,43 @@ void TablaHash::eliminarEstacion(string codigo) {
     }
 }
 
-int TablaHash::getCantidadEstaciones() {
-    return cantidadEstaciones;
-}
 
 Estacion** TablaHash::listarEstaciones() {
     Estacion** resultado = new Estacion*[cantidadEstaciones];
     int posActual = 0;
-
+    
     for (int i = 0; i < capacidad; i++) {
         if (hayEstacion(i)) {
             resultado[posActual++] = estaciones[i];
         }
     }
-
+    
     return resultado;
 }
 
 Estacion** TablaHash::estacionesOrdenadasPorCapacidad() {
     Estacion** resultado = listarEstaciones();
-
+    
     for (int i = 0; i < cantidadEstaciones - 1; i++) {
         int min = i;
-
+        
         for (int j = i + 1; j < cantidadEstaciones; j++) {
             if (resultado[j]->getCapacidadAnclajes() < resultado[min]->getCapacidadAnclajes()) {
                 min = j;
             }
         }
-
+        
         Estacion* aux = resultado[i];
         resultado[i] = resultado[min];
         resultado[min] = aux;
     }
-
+    
     return resultado;
 }
 
 Estacion** TablaHash::estacionesOrdenadasPorDisponibilidad() {
     Estacion** resultado = listarEstaciones();
-
+    
     for (int i = 0; i < cantidadEstaciones - 1; i++) {
         int min = i;
 
@@ -143,49 +170,31 @@ Estacion** TablaHash::estacionesOrdenadasPorDisponibilidad() {
         resultado[i] = resultado[min];
         resultado[min] = aux;
     }
-
+    
     return resultado;
 }
 
-
 ListaEstaciones* TablaHash::estacionesConOcupacionBaja() {
     ListaEstaciones* resultado = new ListaEstaciones();
-
+    
     for (int i = 0; i < capacidad; i++) {
         if (hayEstacion(i) && estaciones[i]->getPorcentajeOcupacion() < 20) {
             resultado->agregarEstacion(estaciones[i]);
         }
     }
-
+    
     return resultado;
 }
 
-void TablaHash::cambiarCapacidad(int nuevaCapacidad) {
-    Estacion** vieja = estaciones;
-    int capacidadVieja = capacidad;
-    capacidad = nuevaCapacidad;
-    estaciones = new Estacion*[capacidad];
 
-    for (int i = 0; i < capacidad; i++) {
-        estaciones[i] = nullptr;
-    }
-
-    for (int i = 0; i < capacidadVieja; i++) {
-        if (vieja[i] != nullptr && vieja[i] != tombstone) {
-            agregarEstacion(vieja[i]);
-            cantidadEstaciones--; // cada agregarEstacion() incrementa en 1
-        }
-    }
-
-    delete[] vieja;
+int TablaHash::getCantidadEstaciones() {
+    return cantidadEstaciones;
 }
 
 double TablaHash::getFactorCarga() {
     return ((double) cantidadEstaciones) / capacidad;
 }
 
-void TablaHash::verificarCambioCapacidad() {
-    if (getFactorCarga() >= MAX_FACTOR_CARGA) {
-        cambiarCapacidad(capacidad * 1.5);
-    }
+int TablaHash::getTotalColisiones() {
+    return totalColisiones;
 }
