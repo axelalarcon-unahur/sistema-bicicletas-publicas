@@ -9,11 +9,14 @@ private:
 
 public:
     ListaEstaciones();
+    ListaEstaciones(ListaEstaciones& lista);
     ~ListaEstaciones();
     void agregarEstacion(Estacion* estacion);
-    void eliminarEstacion(Estacion* estacion);
+    void quitarEstacion(Estacion* estacion);
     Estacion* getEstacion(int pos);
     int getLargo();
+    void mostrar();
+    void mostrarCamino();
 };
 
 #endif

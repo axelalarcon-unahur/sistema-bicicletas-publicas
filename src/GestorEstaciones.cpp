@@ -73,10 +73,7 @@ void GestorEstaciones::estacionesConOcupacionBaja() {
     else {
 
         cout << "--------------------------------------------" << endl;
-        for (int i = 0; i < estaciones->getLargo(); i++) {
-            cout << estaciones->getEstacion(i)->getCodigo() << endl;
-        }
-
+        estaciones->mostrar();
         cout << "--------------------------------------------" << endl;
     }
 
@@ -95,11 +92,7 @@ void GestorEstaciones::caminoMasCorto(string origen, string destino) {
         cout << "No hay camino entre las estaciones " << origen << " y " << destino << "." << endl;
     }
     else {
-        cout << inicio->getCodigo();
-        for (int i = 1; i < estaciones->getLargo(); i++) {
-            cout << " -> " << estaciones->getEstacion(i)->getCodigo();
-        }
-        cout << endl;
+        estaciones->mostrarCamino();
     }
 
     cout << "--------------------------------------------" << endl;
