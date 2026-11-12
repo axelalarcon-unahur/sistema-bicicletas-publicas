@@ -4,7 +4,7 @@ using namespace std;
 
 ColaEstaciones::ColaEstaciones() {
     primero = nullptr;
-    ultimo == nullptr;
+    ultimo = nullptr;
 }
 
 ColaEstaciones::~ColaEstaciones() {

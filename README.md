@@ -54,6 +54,9 @@ Se establece como criterio de prioridad para las bicicletas mecánicas averiadas
 - **Prioridad 2:** bicicletas mecánicas averiadas con más de 5000 km.
 - **Prioridad 3:** bicicletas mecánicas averiadas con 5000 km o menos.
 
+## Consigna de Análisis - Punto A
+- Para 11 estaciones de prueba con una tabla hash de capacidad máxima 16, ocurrieron 7 colisiones con un factor de carga del 68%.
+
 ## Complejidad Temporal - Punto B.
 
 ### B.1)  *Cantidad de viajes por estacion y rango de fechas* 
@@ -125,10 +128,13 @@ Se establece como criterio de prioridad para las bicicletas mecánicas averiadas
 11. Conteo de bicicletas averiadas.
 12. Altura del árbol.
 13. Prueba de inserción de cinco bicicletas en orden creciente para comprobar el desbalance del ABB.
+14. Camino más corto entre dos estaciones.
+15. Camino no existente entre dos estaciones.
+16. Factor de carga de tabla hash.
+17. Cantidad de colisiones en tabla hash.
 
 ## Pendiente de completar
 - Integración de la cola de espera con las estaciones.
-- Gestión de estaciones y tabla de hash.
 - Redistribución mediante backtracking.
 - Diagrama de clases UML.
 - Menú definitivo por consola.
