@@ -5,11 +5,11 @@ int main() {
     GestorEstaciones* gestor = new GestorEstaciones(11);
 
     /* ESTACIONES DE PRUEBA */
-    Estacion* estacion1 = new Estacion("ABC", "Estacion 1", "A", 50, 50);
-    Estacion* estacion2 = new Estacion("BCA", "Estacion 2", "A", 50, 50);
-    Estacion* estacion3 = new Estacion("TAZ", "Estacion 3", "A", 50, 50);
-    Estacion* estacion4 = new Estacion("ZTA", "Estacion 4", "A", 50, 50);
-    Estacion* estacion5 = new Estacion("FJA", "Estacion 5", "A", 50, 50);
+    Estacion* estacion1 = new Estacion("ABC", "Estacion 1", "A", 50, 47);
+    Estacion* estacion2 = new Estacion("BCA", "Estacion 2", "A", 50, 43);
+    Estacion* estacion3 = new Estacion("TAZ", "Estacion 3", "A", 50, 45);
+    Estacion* estacion4 = new Estacion("ZTA", "Estacion 4", "A", 50, 48);
+    Estacion* estacion5 = new Estacion("FJA", "Estacion 5", "A", 50, 45);
     Estacion* estacion6 = new Estacion("ZED", "Estacion 6", "A", 50, 50);
     Estacion* estacion7 = new Estacion("ZEN", "Estacion 7", "A", 50, 50);
     Estacion* estacion8 = new Estacion("DEC", "Estacion 8", "A", 50, 50);
@@ -42,11 +42,16 @@ int main() {
     gestor->agregarCiclovia("FJA", "ZED"); // 5 - 6
     gestor->agregarCiclovia("DEC", "MAT"); // 8 - 9
 
+    /* LISTA DE ESTACIONES PARA BACKTRACKING */
+    string estaciones[6] = {"ABC", "BCA", "TAZ", "ZTA", "FJA"};
+
     // PRUEBAS
     gestor->caminoMasCorto("ABC", "ZTA");
     gestor->caminoMasCorto("ABC", "UNR");
     gestor->totalColisiones();
     gestor->factorDeCarga();
+    gestor->mostrarRestribucionBicicletas(estaciones, 5, 0);
+    gestor->mostrarRestribucionBicicletas(estaciones, 5, 10);
 
     delete gestor;
 }

@@ -22,7 +22,7 @@ public:
     Backtracker(Estacion** estaciones, int cantidadEstaciones, int capacidadCamion);
     ~Backtracker();
 
-    ListaEstaciones** encontrarSolucion();
+    ListaEstaciones** encontrarSoluciones();
     int getCantidadSoluciones();
 };
 

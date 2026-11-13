@@ -23,8 +23,10 @@ Backtracker::~Backtracker() {
     delete[] soluciones;
 }
 
-ListaEstaciones** Backtracker::encontrarSolucion() {
-    backtracking(0, new ListaEstaciones(), 0);
+ListaEstaciones** Backtracker::encontrarSoluciones() {
+    ListaEstaciones* inicial = new ListaEstaciones();
+    backtracking(0, inicial, 0);
+    delete inicial;
     return soluciones;
 }
 
@@ -57,7 +59,7 @@ void Backtracker::cambiarCapacidad() {
     ListaEstaciones** nueva = new ListaEstaciones*[tamanioNuevo];
 
     for (int i = 0; i < tamanioNuevo; i++) {
-        nueva[i] = i < cantidadEstaciones ? soluciones[i] : nullptr;
+        nueva[i] = i < cantidadSoluciones ? soluciones[i] : nullptr;
     }
 
     t = tamanioNuevo;
@@ -67,5 +69,5 @@ void Backtracker::cambiarCapacidad() {
 }
 
 int Backtracker::getCantidadSoluciones() {
-    return cantidadEstaciones;
+    return cantidadSoluciones;
 }
