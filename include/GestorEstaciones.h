@@ -10,6 +10,8 @@ class GestorEstaciones {
 private:
     TablaHash* tablaHash;
     GrafoEstaciones* grafo;
+
+    Estacion** codigosAEstaciones(string* codigos, int n);
     
 public:
     GestorEstaciones(int cantidadInicial);
@@ -22,6 +24,7 @@ public:
     void estacionesConOcupacionBaja();
     void caminoMasCorto(string origen, string destino);
     void agregarCiclovia(string a, string b);
+    void mostrarRestribucionBicicletas(string* codigos, int cantidadEstaciones, int capacidadCamion);
     void totalColisiones();
     void factorDeCarga();
 };

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "GestorEstaciones.h"
+#include "Backtracker.h"
 
 GestorEstaciones::GestorEstaciones(int capacidadInicial) {
     tablaHash = new TablaHash(capacidadInicial);
@@ -71,12 +72,8 @@ void GestorEstaciones::estacionesConOcupacionBaja() {
         cout << "No hay estaciones con ocupación menor al 20%." << endl;
     }
     else {
-
         cout << "--------------------------------------------" << endl;
-        for (int i = 0; i < estaciones->getLargo(); i++) {
-            cout << estaciones->getEstacion(i)->getCodigo() << endl;
-        }
-
+        estaciones->mostrar();
         cout << "--------------------------------------------" << endl;
     }
 
@@ -95,11 +92,7 @@ void GestorEstaciones::caminoMasCorto(string origen, string destino) {
         cout << "No hay camino entre las estaciones " << origen << " y " << destino << "." << endl;
     }
     else {
-        cout << inicio->getCodigo();
-        for (int i = 1; i < estaciones->getLargo(); i++) {
-            cout << " -> " << estaciones->getEstacion(i)->getCodigo();
-        }
-        cout << endl;
+        estaciones->mostrarCamino();
     }
 
     cout << "--------------------------------------------" << endl;
@@ -119,6 +112,41 @@ void GestorEstaciones::agregarCiclovia(string a, string b) {
         inicio->agregarAdyacente(fin);
         fin->agregarAdyacente(inicio);
     }
+}
+
+void GestorEstaciones::mostrarRestribucionBicicletas(string* codigos, int cantidadEstaciones, int capacidadCamion) {
+    if (capacidadCamion <= 0) {
+        cout << "La capacidad del camion debe ser mayor a 0." << endl;
+        return;
+    }
+    
+    Estacion** estaciones = codigosAEstaciones(codigos, cantidadEstaciones);
+    Backtracker* b = new Backtracker(estaciones, cantidadEstaciones, capacidadCamion);
+    ListaEstaciones** soluciones = b->encontrarSoluciones();
+
+    if (b->getCantidadSoluciones() == 0) {
+        cout << "No hay subconjunto de estaciones cuya sumatoria sea exactamente " << capacidadCamion << "." << endl;
+    }
+    else {
+        cout << "--------------------------------------------" << endl;
+        for (int i = 0; i < b->getCantidadSoluciones(); i++) {
+            soluciones[i]->mostrar();
+        }
+        cout << "--------------------------------------------" << endl;
+    }
+    
+    delete[] estaciones;
+    delete b;
+}
+
+Estacion** GestorEstaciones::codigosAEstaciones(string* codigos, int n) {
+    Estacion** resultado = new Estacion*[n];
+
+    for (int i = 0; i < n; i++) {
+        resultado[i] = tablaHash->buscarEstacion(codigos[i]);
+    }
+
+    return resultado;
 }
 
 void GestorEstaciones::totalColisiones() {

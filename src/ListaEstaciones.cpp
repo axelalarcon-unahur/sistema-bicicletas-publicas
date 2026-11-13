@@ -1,9 +1,34 @@
+#include <iostream>
 #include "ListaEstaciones.h"
 
 ListaEstaciones::ListaEstaciones() {
     primero = nullptr;
     largo = 0;
 }
+
+// usado para la creación de soluciones en backtracking
+ListaEstaciones::ListaEstaciones(ListaEstaciones& lista) {
+    NodoEstacion* aux = lista.primero;
+    NodoEstacion* actual = nullptr;
+    
+    primero = nullptr;
+    largo = lista.largo;
+
+    while (aux != nullptr) {
+        NodoEstacion* temp = new NodoEstacion(aux->dato);
+
+        if (primero == nullptr) {
+            primero = temp;
+            actual = temp;
+        }
+        else {
+            actual->siguiente = temp;
+            actual = temp;
+        }
+
+        aux = aux->siguiente;
+    }
+} 
 
 ListaEstaciones::~ListaEstaciones() {
     NodoEstacion* actual = primero;
@@ -33,7 +58,7 @@ void ListaEstaciones::agregarEstacion(Estacion* estacion) {
     largo++;
 }
 
-void ListaEstaciones::eliminarEstacion(Estacion* estacion) {
+void ListaEstaciones::quitarEstacion(Estacion* estacion) {
     if (primero == nullptr) {
         return;
     }
@@ -72,4 +97,35 @@ Estacion* ListaEstaciones::getEstacion(int pos) {
 
 int ListaEstaciones::getLargo() {
     return largo;
+}
+
+void ListaEstaciones::mostrar() {
+    cout << "[";
+    if (primero != nullptr) {
+        NodoEstacion* actual = primero;
+        cout << primero->dato->getCodigo();
+
+        while (actual->siguiente != nullptr) {
+            actual = actual->siguiente;
+            cout << ", " << actual->dato->getCodigo();
+        }
+    }
+    cout << "]" << endl;
+}
+
+void ListaEstaciones::mostrarCamino() {
+    if (primero == nullptr) {
+        cout << endl;
+        return;
+    }
+
+    NodoEstacion* actual = primero;
+    cout << primero->dato->getCodigo();
+
+    while (actual->siguiente != nullptr) {
+        actual = actual->siguiente;
+        cout << "-> " << actual->dato->getCodigo();
+    }
+
+    cout << endl;
 }

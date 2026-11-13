@@ -30,7 +30,7 @@ Estacion::Estacion() {
 Estacion::~Estacion() {
     // se quita a si misma de la lista de adyacentes de cada vecino
     for (int i = 0; i < adyacentes->getLargo(); i++) {
-        adyacentes->getEstacion(i)->getAdyacentes()->eliminarEstacion(this);
+        adyacentes->getEstacion(i)->getAdyacentes()->quitarEstacion(this);
     }
     delete adyacentes;
 }
