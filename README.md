@@ -15,11 +15,11 @@ Los pasos para ejecutar el proyecto son:
     
 1. Abrimos la terminal de powershell y ejecutamos:
 ```text
-g++ -std=c++17 -Wall -Wextra -Iinclude src/Main.cpp src/Viaje.cpp src/ListaViajes.cpp src/Bicicleta.cpp src/ListaBicicletas.cpp src/ColaPrioridad.cpp src/ColaEspera.cpp src/AbbBicicletas.cpp -o src/prueba.exe
+& "C:\msys64\ucrt64\bin\g++.exe" -std=c++17 -Wall -Wextra -Iinclude (Get-ChildItem .\src -Recurse -Filter *.cpp | Where-Object { $_.DirectoryName -notlike '*\pruebas*' } | ForEach-Object FullName) -o .\prueba.exe
 ```
 2. Luego hacemos:
 ```text
-.\src\prueba.exe
+.\prueba.exe
 ```
 # Descripción de los módulos:
 ## Viajes
@@ -142,37 +142,65 @@ Se establece como criterio de prioridad para las bicicletas mecánicas averiadas
 
 ## Estructura del Proyecto 
 ```text
+
+sistema-bicicletas-publicas/
 │
+├── documentacion/
+│      ├── diagramaUML.png
 ├── include/
-│   ├── AbbBicicletas.h
-│   ├── Bicicleta.h
-│   ├── ColaEspera.h
-│   ├── ColaEstaciones.h
-│   ├── ColaPrioridad.h
-│   ├── Estacion.h
-│   ├── GestorEstaciones.h
-│   ├── ListaBicicletas.h
-│   ├── ListaEstaciones.h
-│   ├── ListaViajes.h
-│   ├── NodoEstacion.h
-│   ├── TablaHash.h
-│   ├── MinHeap.h
-│   ├── Viaje.h
+│   ├── bicicletas/
+│   │   ├── AbbBicicletas.h
+│   │   ├── Bicicleta.h
+│   │   └── ListaBicicletas.h
+│   │
+│   ├── colas/
+│   │   ├── ColaEspera.h
+│   │   ├── ColaEstaciones.h
+│   │   └── ColaPrioridad.h
+│   │
+│   ├── estaciones/
+│   │   ├── Estacion.h
+│   │   ├── GestorEstaciones.h
+│   │   ├── GrafoEstaciones.h
+│   │   ├── ListaEstaciones.h
+│   │   ├── NodoEstacion.h
+│   │   └── TablaHash.h
+│   │
+│   ├── redistribucion/
+│   │   └── Backtracker.h
+│   │
+│   └── viajes/
+│       ├── ListaViajes.h
+│       └── Viaje.h
+│
 ├── src/
-│   ├── AbbBicicletas.cpp
-│   ├── Bicicleta.cpp
-│   ├── ColaEspera.cpp
-│   ├── ColaEstaciones.cpp
-│   ├── ColaPrioridad.cpp
-│   ├── Estacion.cpp
-│   ├── GestorEstaciones.cpp
-│   ├── GrafoEstaciones.cpp
-│   ├── ListaBicicletas.cpp
-│   ├── ListaEstaciones.cpp
-│   ├── ListaViajes.cpp
-│   ├── MinHeap.cpp
-│   ├── Viaje.cpp
+│   ├── bicicletas/
+│   │   ├── AbbBicicletas.cpp
+│   │   ├── Bicicleta.cpp
+│   │   └── ListaBicicletas.cpp
+│   │
+│   ├── colas/
+│   │   ├── ColaEspera.cpp
+│   │   ├── ColaEstaciones.cpp
+│   │   └── ColaPrioridad.cpp
+│   │
+│   ├── estaciones/
+│   │   ├── Estacion.cpp
+│   │   ├── GestorEstaciones.cpp
+│   │   ├── GrafoEstaciones.cpp
+│   │   ├── ListaEstaciones.cpp
+│   │   └── TablaHash.cpp
+│   │
+│   ├── redistribucion/
+│   │   └── Backtracker.cpp
+│   │
+│   ├── viajes/
+│   │   ├── ListaViajes.cpp
+│   │   └── Viaje.cpp
+│   │
 │   └── Main.cpp
+│
 ├── README.md
 └── .gitignore
+
 ```
