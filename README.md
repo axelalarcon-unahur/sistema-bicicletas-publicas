@@ -13,6 +13,7 @@ Para compilar el proyecto se utiliza g++ con el estandar C++17 y las opciones
 de advertencias correspondientes.
 Los pasos para ejecutar el proyecto son:
     
+## Windows
 1. Abrimos la terminal de powershell y ejecutamos:
 ```text
 & "C:\msys64\ucrt64\bin\g++.exe" -std=c++17 -Wall -Wextra -Iinclude (Get-ChildItem .\src -Recurse -Filter *.cpp | Where-Object { $_.DirectoryName -notlike '*\pruebas*' } | ForEach-Object FullName) -o .\prueba.exe
@@ -21,13 +22,28 @@ Los pasos para ejecutar el proyecto son:
 ```text
 .\prueba.exe
 ```
+## Linux
+1. Abrir la terminal y ejecutar el siguiente comando:
+```text
+g++ -std=c++17 -Wall -Wextra -Iinclude $(find src -name '*.cpp') -o main 
+```
+o de forma alternativa, el siguiente comando:
+```
+ g++ -std=c++17 -Wall -Wextra -Iinclude src/bicicletas/*.cpp src/colas/*.cpp src/estaciones/*.cpp src/lector/*.cpp src/redistribucion/*.cpp src/viajes/*.cpp src/Main.cpp -o main
+```
+
+2. Finalmente, ejecutar el programa con:
+```
+./main
+```
 # Descripción de los módulos:
 ## Estaciones
 - **Estacion:** Representa una estación base con sus atributos y algunos métodos de utilidad.
 - **GestorEstaciones:** Se encarga de gestionar las estaciones e informar al usuario de los resultados de cualquier operación que el mismo solicite sobre las mismas. 
-- **TablaHash:** Almacena las estaciones en una tabla hash y permite la búsqueda, inserción, eliminación, entre otras operaciones, de estaciones.
+- **TablaHash:** Almacena las estaciones en una tabla hash mediante open addressing con sondeo lineal. Permite la búsqueda, inserción, eliminación, entre otras operaciones, de estaciones.
 - **GrafoEstaciones:** Tiene los métodos necesarios para ejecutar BFS sobre las estaciones y encontrar el camino más corto entre dos de ellas.
 - **ListaEstaciones**: Clase auxiliar que almacena una lista de estaciones para cualquier otra operación o clase que la necesite. 
+
 ## Viajes
 - **Viaje:** Representa un viaje realizado por usuario (uno unico). Este mismo
 tiene un identificador del viaje, la bicicleta que se utilizo, el DNI del usuario, las estaciones de origen y destino, la fecha y la duración.
@@ -55,6 +71,9 @@ ordenadas por su identificador. Permite insertar bicicletas, buscar y mostrar un
 
 ## Backtracking
 - **Backtracker**: Se encarga de ejecutar el algoritmo de backtracking y para ello implementa una serie de atributos y métodos necesarios.
+
+## Lector
+- **LectorArchivos:** Usado para leer los archivos de entrada y generar los objetos correspondientes, para poder realizar diversas pruebas sobre los mismos.
 
 ## Criterio de Prioridad del min-heap
 Se establece como criterio de prioridad para las bicicletas mecánicas averiadas la cantidad de kilómetros recorridos. Aquellas que superan los 5000 km reciben prioridad 2, mientras que las que no superan ese valor reciben prioridad 3. Las bicicletas eléctricas averiadas mantienen prioridad 1, según lo establecido en la consigna.
@@ -158,11 +177,9 @@ La complejidad es O(n) porque, en el peor caso, debemos recorrer todos los nodos
 25. Camino no existente entre dos estaciones.
 26. Factor de carga de la tabla hash.
 27. Cantidad de colisiones en la tabla hash.
-
-## Pendiente de completar
-- Diagrama de clases UML.
-- Menú definitivo por consola.
-- Verificación de ausencia de pérdidas de memoria.
+28. Lectura de archivos.
+29. Menú por consola.
+30. Verificación de perdidas de memoria con valgrind.
 
 ## Estructura del Proyecto 
 ```text
