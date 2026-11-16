@@ -41,10 +41,10 @@ void GestorEstaciones::estacionesOrdenadasPorCapacidad() {
     Estacion** estaciones = tablaHash->estacionesOrdenadasPorCapacidad();
 
     cout << "--------------------------------------------" << endl;
-    cout << "Estaciones ordenadas por capacidad: " << endl;
+    cout << "Estaciones ordenadas por capacidad (menor a mayor): " << endl;
 
     for (int i = 0; i < tablaHash->getCantidadEstaciones(); i++) {
-        cout << i + 1 << ". " << estaciones[i]->getCodigo() << endl;
+        cout << i + 1 << ". " << estaciones[i]->getCodigo() << " " << estaciones[i]->getCapacidadAnclajes() << endl;
     }
 
     cout << "--------------------------------------------" << endl;
@@ -55,10 +55,10 @@ void GestorEstaciones::estacionesOrdenadasPorDisponibilidad() {
     Estacion** estaciones = tablaHash->estacionesOrdenadasPorDisponibilidad();
 
     cout << "--------------------------------------------" << endl;
-    cout << "Estaciones ordenadas por disponibilidad: " << endl;
+    cout << "Estaciones ordenadas por disponibilidad (menor a mayor): " << endl;
 
     for (int i = 0; i < tablaHash->getCantidadEstaciones(); i++) {
-        cout << i + 1 << ". " << estaciones[i]->getCodigo() << endl;
+        cout << i + 1 << ". " << estaciones[i]->getCodigo() << " " << estaciones[i]->getBicisDisponibles() << endl;
     }
 
     cout << "--------------------------------------------" << endl;
@@ -154,5 +154,5 @@ void GestorEstaciones::totalColisiones() {
 }
 
 void GestorEstaciones::factorDeCarga() {
-    cout << "Factor de Carga: " << tablaHash->getFactorCarga() << endl;
+    cout << "Factor de Carga: " << tablaHash->getFactorCarga()  * 100 << "%" << endl;
 }

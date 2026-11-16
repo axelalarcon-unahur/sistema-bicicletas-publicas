@@ -9,14 +9,15 @@ class LectorArchivos {
         GestorEstaciones* gestor;
         AbbBicicletas* abbBicicletas;
         ListaViajes* listaViajes;
-
-    public:
-        LectorArchivos(GestorEstaciones* gestor, AbbBicicletas* abbBicicletas, ListaViajes* listaViajes);
-        void leerArchivos();
+        
         void leerEstaciones();
         void leerBicicletas();
         void leerViajes();
         void leerCiclovias();
+
+    public:
+        LectorArchivos(GestorEstaciones* gestor, AbbBicicletas* abbBicicletas, ListaViajes* listaViajes);
+        void leerArchivos();
 };
 
 #endif

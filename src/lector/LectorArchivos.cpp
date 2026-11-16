@@ -18,7 +18,7 @@ void LectorArchivos::leerArchivos() {
 }
 
 void LectorArchivos::leerEstaciones() {
-    ifstream archivo("../../entradas/estaciones.txt"); // crea objeto para leer archivo
+    ifstream archivo("entradas/estaciones.txt"); // crea objeto para leer archivo
     string linea; // usado para leer cada linea del archivo
 
     // mientras haya lineas que leer
@@ -43,7 +43,7 @@ void LectorArchivos::leerEstaciones() {
 }
 
 void LectorArchivos::leerBicicletas() {
-    ifstream archivo("../../entradas/bicicletas.txt");
+    ifstream archivo("entradas/bicicletas.txt");
     string linea;
 
     while (getline(archivo, linea)) { 
@@ -67,7 +67,7 @@ void LectorArchivos::leerBicicletas() {
 }
 
 void LectorArchivos::leerViajes() {
-    ifstream archivo("../../entradas/viajes.txt");
+    ifstream archivo("entradas/viajes.txt");
     string linea;
 
     while (getline(archivo, linea)) { 
@@ -96,7 +96,7 @@ void LectorArchivos::leerViajes() {
 }
 
 void LectorArchivos::leerCiclovias() {
-    ifstream archivo("../../entradas/estaciones.txt"); 
+    ifstream archivo("entradas/ciclovias.txt"); 
     string linea; 
 
     while (getline(archivo, linea)) { 

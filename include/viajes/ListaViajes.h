@@ -1,3 +1,6 @@
+#ifndef LISTA_VIAJES_H
+#define LISTA_VIAJES_H
+
 #include "viajes/Viaje.h"
 #include <string>
 
@@ -16,3 +19,5 @@ public:
     int cantViajesPorEstacion(string codigoEstacion, int fechaInicial, int fechaFin);
     int minutosPedaleadosPorUsuarioSegunViajes(int dniUsuario);
 };
+
+#endif
