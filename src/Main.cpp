@@ -2,25 +2,86 @@
 #include "viajes/Viaje.h"
 #include "viajes/ListaViajes.h"
 #include "bicicletas/Bicicleta.h"
-#include "bicicletas/ListaBicicletas.h"
 #include "colas/ColaPrioridad.h"
 #include "colas/ColaEspera.h"
 #include "bicicletas/AbbBicicletas.h"
 #include "estaciones/GestorEstaciones.h"
 
 using namespace std;
-// ----------  BICICLETAS ----------
-void menuBicicletas(ListaBicicletas& listaBicicletas,
-                    AbbBicicletas& arbol,
+// ---------- MENU PRUEBAS DE ELIMINACION ----------
+void menuPruebasEliminacion() {
+    int opcionElegida;
+    do {
+        cout << "------ Pruebas de eliminacion de nodos(ABB) ----- " << endl;
+        cout << "1. Eliminar una hoja" << endl;
+        cout << "2. Eliminar un nodo con un hijo" << endl;
+        cout << "3. Eliminar un nodo con dos hijos" << endl;
+        cout << "0. Volver" << endl;
+        cout << "Seleccione una opcion: ";
+        cin >> opcionElegida;
+        switch (opcionElegida) {
+            case 1: {
+                AbbBicicletas arbolHoja;
+                arbolHoja.insertarUnaBicicleta(Bicicleta(50, "TEST", "Mecanica", "OK", 100));
+                arbolHoja.insertarUnaBicicleta(Bicicleta(30, "TEST", "Mecanica", "OK", 100));
+                arbolHoja.insertarUnaBicicleta(Bicicleta(70, "TEST", "Mecanica", "OK", 100));
+                arbolHoja.insertarUnaBicicleta(Bicicleta(20, "TEST", "Mecanica", "OK", 100));
+                cout << "Arbol antes de eliminar:" << endl;
+                arbolHoja.listarBicicletasInOrden();
+                arbolHoja.eliminarBicicleta(20);
+                cout << "Arbol despues de eliminar la hoja (20):" << endl;
+                arbolHoja.listarBicicletasInOrden();
+                break;
+            }
+            case 2: {
+                AbbBicicletas arbolUnHijo;
+                arbolUnHijo.insertarUnaBicicleta(Bicicleta(50, "TEST", "Mecanica", "OK", 100));
+                arbolUnHijo.insertarUnaBicicleta(Bicicleta(30, "TEST", "Mecanica", "OK", 100));
+                arbolUnHijo.insertarUnaBicicleta(Bicicleta(20, "TEST", "Mecanica", "OK", 100));
+                cout << "Arbol antes de eliminar:" << endl;
+                arbolUnHijo.listarBicicletasInOrden();
+                arbolUnHijo.eliminarBicicleta(30);
+                cout << "Arbol despues de eliminar el nodo con un hijo (30):" << endl;
+                arbolUnHijo.listarBicicletasInOrden();
+                break;
+            }
+            case 3: {
+                AbbBicicletas arbolDosHijos;
+                arbolDosHijos.insertarUnaBicicleta(Bicicleta(50, "TEST", "Mecanica", "OK", 100));
+                arbolDosHijos.insertarUnaBicicleta(Bicicleta(30, "TEST", "Mecanica", "OK", 100));
+                arbolDosHijos.insertarUnaBicicleta(Bicicleta(70, "TEST", "Mecanica", "OK", 100));
+                arbolDosHijos.insertarUnaBicicleta(Bicicleta(20, "TEST", "Mecanica", "OK", 100));
+                arbolDosHijos.insertarUnaBicicleta(Bicicleta(40, "TEST", "Mecanica", "OK", 100));
+                arbolDosHijos.insertarUnaBicicleta(Bicicleta(60, "TEST", "Mecanica", "OK", 100));
+                arbolDosHijos.insertarUnaBicicleta(Bicicleta(80, "TEST", "Mecanica", "OK", 100));
+                cout << "Arbol antes de eliminar:" << endl;
+                arbolDosHijos.listarBicicletasInOrden();
+                arbolDosHijos.eliminarBicicleta(50);
+                cout << "Arbol despues de eliminar el nodo con dos hijos (50):" << endl;
+                arbolDosHijos.listarBicicletasInOrden();
+                break;
+            }
+            case 0:
+                cout << "Volviendo al menu de bicicletas..." << endl;
+                break;
+            default:
+                cout << "Opcion incorrecta" << endl;
+        }
+    } while (opcionElegida != 0);
+}
+// ---------- GESTION DE BICICLETAS ----------
+void menuBicicletas(AbbBicicletas& arbol,
                     AbbBicicletas& arbolOrdenado) {
     int opcionElegida;
     do {
-        cout << "\n===== GESTION DE BICICLETAS =====" << endl;
+        cout << " ------ Menu Bicicletas ----- " << endl;
         cout << "1. Mostrar bicicletas con mas de X kilometros" << endl;
         cout << "2. Buscar bicicleta mediante ID" << endl;
         cout << "3. Listar bicicletas ordenadas por ID" << endl;
         cout << "4. Cantidad de bicicletas averiadas" << endl;
         cout << "5. Calcular altura del arbol" << endl;
+        cout << "6. Pruebas de eliminacion de bicicletas" << endl;
+        cout << "7. Eliminar bicicleta mediante ID" << endl; // agregado
         cout << "0. Volver al menu principal" << endl;
         cout << "Seleccione una opcion: ";
         cin >> opcionElegida;
@@ -29,7 +90,7 @@ void menuBicicletas(ListaBicicletas& listaBicicletas,
                 int kilometros;
                 cout << "Ingrese la cantidad de kilometros: ";
                 cin >> kilometros;
-                listaBicicletas.cantBicicletasSuperadasPorKm(kilometros);
+                arbol.bicicletasConMasDeXKm(kilometros);
                 break;
             }
             case 2: {
@@ -52,6 +113,18 @@ void menuBicicletas(ListaBicicletas& listaBicicletas,
                 cout << "Altura arbol ordenado: "
                      << arbolOrdenado.calcularAlturaArbol() << endl;
                 break;
+            case 6:
+                menuPruebasEliminacion();
+                break;
+            case 7: {
+                int id;
+                cout << "Ingrese el ID de la bicicleta que desea eliminar: ";
+                cin >> id;
+                arbol.eliminarBicicleta(id);
+                cout << "\nArbol despues de la eliminacion:" << endl;
+                arbol.listarBicicletasInOrden();
+                break;
+            }
             case 0:
                 cout << "Volviendo al menu principal..." << endl;
                 break;
@@ -60,12 +133,11 @@ void menuBicicletas(ListaBicicletas& listaBicicletas,
         }
     } while (opcionElegida != 0);
 }
-
 // ----------  VIAJES ----------
 void menuViajes(ListaViajes& listaViajes) {
     int opcionElegida;
     do {
-        cout << "\n===== GESTION DE VIAJES =====" << endl;
+        cout << "---- Menu Viajes ------" << endl;
         cout << "1. Cantidad de viajes por estacion y rango de fechas" << endl;
         cout << "2. Minutos pedaleados por usuario" << endl;
         cout << "0. Volver al menu principal" << endl;
@@ -75,14 +147,12 @@ void menuViajes(ListaViajes& listaViajes) {
             case 1: {
                 string codigo;
                 int fechaInicial, fechaFinal;
-
                 cout << "Ingrese el codigo de la estacion: ";
                 cin >> codigo;
                 cout << "Ingrese la fecha inicial (AAAAMMDD): ";
                 cin >> fechaInicial;
                 cout << "Ingrese la fecha final (AAAAMMDD): ";
                 cin >> fechaFinal;
-
                 int cantidad = listaViajes.cantViajesPorEstacion(
                     codigo, fechaInicial, fechaFinal
                 );
@@ -106,14 +176,11 @@ void menuViajes(ListaViajes& listaViajes) {
         }
     } while (opcionElegida != 0);
 }
-// ----------  COLAS ----------
-void menuColas(const Bicicleta& primeraBicicleta,
-               const Bicicleta& segundaBicicleta,
-               const Bicicleta& tercerBicicleta,
-               const Bicicleta& cuartaBicicleta) {
+// ---------- COLAS ----------
+void menuColas(AbbBicicletas& arbol) {
     int opcionElegida;
     do {
-        cout << "\n===== GESTION DE COLAS =====" << endl;
+        cout << "----- Menu Colas ----- " << endl;
         cout << "1. Probar cola de espera" << endl;
         cout << "2. Probar cola de prioridad" << endl;
         cout << "0. Volver al menu principal" << endl;
@@ -142,25 +209,36 @@ void menuColas(const Bicicleta& primeraBicicleta,
             case 2: {
                 ColaPrioridadBicicletas colaPrioridad(10);
                 ColaPrioridadBicicletas colaPrioridadChica(2);
-                colaPrioridad.insertarUnaBici(segundaBicicleta);
-                colaPrioridad.insertarUnaBici(tercerBicicleta);
-                colaPrioridad.insertarUnaBici(cuartaBicicleta);
-                colaPrioridad.insertarUnaBici(primeraBicicleta);
-                Bicicleta biciExtraida(999, "TEST", "Mecanica", "OK", 0);
-                cout << "Extraccion de la cola de prioridad:" << endl;
-                while (colaPrioridad.extraerBicicletaConMayorPrioridad(
-                    biciExtraida)) {
-                    cout << "Bicicleta extraida: "
-                         << biciExtraida.getBiciId() << endl;
-                }
-                cout << "Prueba de capacidad maxima:" << endl;
-                colaPrioridadChica.insertarUnaBici(segundaBicicleta);
-                colaPrioridadChica.insertarUnaBici(tercerBicicleta);
-                colaPrioridadChica.insertarUnaBici(cuartaBicicleta);
-                while (colaPrioridadChica.extraerBicicletaConMayorPrioridad(
-                    biciExtraida)) {
-                    cout << "Bicicleta extraida: "
-                         << biciExtraida.getBiciId() << endl;
+                Bicicleta primeraBicicleta(999, "TEST", "Mecanica", "OK", 0);
+                Bicicleta segundaBicicleta(999, "TEST", "Mecanica", "OK", 0);
+                Bicicleta tercerBicicleta(999, "TEST", "Mecanica", "OK", 0);
+                Bicicleta cuartaBicicleta(999, "TEST", "Mecanica", "OK", 0);
+                if (arbol.obtenerBicicleta(501, primeraBicicleta) &&
+                    arbol.obtenerBicicleta(502, segundaBicicleta) &&
+                    arbol.obtenerBicicleta(503, tercerBicicleta) &&
+                    arbol.obtenerBicicleta(504, cuartaBicicleta)) {
+                    colaPrioridad.insertarUnaBici(segundaBicicleta);
+                    colaPrioridad.insertarUnaBici(tercerBicicleta);
+                    colaPrioridad.insertarUnaBici(cuartaBicicleta);
+                    colaPrioridad.insertarUnaBici(primeraBicicleta);
+                    Bicicleta biciExtraida(999, "TEST", "Mecanica", "OK", 0);
+                    cout << "Extraccion de la cola de prioridad:" << endl;
+                    while (colaPrioridad.extraerBicicletaConMayorPrioridad(
+                        biciExtraida)) {
+                        cout << "Bicicleta extraida: "
+                             << biciExtraida.getBiciId() << endl;
+                    }
+                    cout << "Prueba de capacidad maxima:" << endl;
+                    colaPrioridadChica.insertarUnaBici(segundaBicicleta);
+                    colaPrioridadChica.insertarUnaBici(tercerBicicleta);
+                    colaPrioridadChica.insertarUnaBici(cuartaBicicleta);
+                    while (colaPrioridadChica.extraerBicicletaConMayorPrioridad(
+                        biciExtraida)) {
+                        cout << "Bicicleta extraida: "
+                             << biciExtraida.getBiciId() << endl;
+                    }
+                } else {
+                    cout << "No se encontraron todas las bicicletas en el ABB." << endl;
                 }
                 break;
             }
@@ -176,7 +254,7 @@ void menuColas(const Bicicleta& primeraBicicleta,
 void menuEstaciones(GestorEstaciones& gestor) {
     int opcionElegida;
     do {
-        cout << "\n===== GESTION DE ESTACIONES =====" << endl;
+        cout << "----- Menu Estaciones ----- " << endl;
         cout << "1. Buscar una estacion" << endl;
         cout << "2. Agregar estacion" << endl;
         cout << "3. Ordenar estaciones por capacidad" << endl;
@@ -259,7 +337,7 @@ void menuRedistribucion(GestorEstaciones& gestor) {
     string estaciones[5] = {"ABC", "BCA", "TAZ", "ZTA", "FJA"};
     int capacidadCamion;
 
-    cout << "\n===== REDISTRIBUCION DE BICICLETAS =====" << endl;
+    cout << "--- Menu Redistribuccion de Bicicletas" << endl;
     cout << "Estaciones consideradas: ABC, BCA, TAZ, ZTA, FJA" << endl;
     cout << "Ingrese la capacidad del camion: ";
     cin >> capacidadCamion;
@@ -297,7 +375,6 @@ void cargarEstacionesPrueba(GestorEstaciones& gestor) {
 int main() {
     // ESTRUCTURA
     ListaViajes listaViajes;
-    ListaBicicletas listaBicicletas;
     AbbBicicletas arbolPrimerPrueba;
     AbbBicicletas arbolOrdenado;
     GestorEstaciones gestorEstaciones(11);
@@ -317,10 +394,6 @@ int main() {
     // CARGA DE LISTAS
     listaViajes.agregarViaje(primerViaje);
     listaViajes.agregarViaje(segundoViaje);
-    listaBicicletas.agregarBicicleta(primerBicicleta);
-    listaBicicletas.agregarBicicleta(segundaBicicleta);
-    listaBicicletas.agregarBicicleta(tercerBicicleta);
-    listaBicicletas.agregarBicicleta(cuartaBicicleta);
     // CARGA DE ARBOLES
     arbolPrimerPrueba.insertarUnaBicicleta(tercerBicicleta);
     arbolPrimerPrueba.insertarUnaBicicleta(primerBicicleta);
@@ -331,29 +404,28 @@ int main() {
     arbolOrdenado.insertarUnaBicicleta(bici3);
     arbolOrdenado.insertarUnaBicicleta(bici4);
     arbolOrdenado.insertarUnaBicicleta(bici5);
+
     // MENU PRINCIPAL
     int opcionElegida;
     do {
-        cout << "\n===== SISTEMA DE BICICLETAS PUBLICAS =====" << endl;
-        cout << "1. Gestion de  bicicletas" << endl;
-        cout << "2. Gestion de viajes" << endl;
-        cout << "3. Gestion de colas" << endl;
-        cout << "4. Gestion de estaciones" << endl;
-        cout << "5. Redistribucion de bicicletas" << endl;
+        cout << "------- SISTEMA DE BICICLETAS PUBLICAS ------ " << endl;
+        cout << "1. Menu Bicicletas " << endl;
+        cout << "2. Menu Viajes" << endl;
+        cout << "3. Menu Colas " << endl;
+        cout << "4. Menu Estaciones" << endl;
+        cout << "5. Menu Redistribucion de Bicicletas" << endl;
         cout << "0. Salir" << endl;
         cout << "Seleccione una opcion: ";
         cin >> opcionElegida;
         switch (opcionElegida) {
             case 1:
-                menuBicicletas(listaBicicletas, arbolPrimerPrueba,
-                               arbolOrdenado);
+                menuBicicletas(arbolPrimerPrueba, arbolOrdenado);
                break;
             case 2:
                 menuViajes(listaViajes);
                break;
             case 3:
-                menuColas(primerBicicleta, segundaBicicleta,
-                          tercerBicicleta, cuartaBicicleta);
+                menuColas(arbolPrimerPrueba);
                break;
             case 4:
                     menuEstaciones(gestorEstaciones);

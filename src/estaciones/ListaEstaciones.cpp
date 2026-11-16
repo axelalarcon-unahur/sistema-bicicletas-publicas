@@ -84,17 +84,22 @@ void ListaEstaciones::quitarEstacion(Estacion* estacion) {
 }
 
 Estacion* ListaEstaciones::getEstacion(int pos) {
+    /*
+        Si se recibe una pos invalida no se podria acceder
+        al actual.dato por eso primero el if para comprobar la pos
+        si es invalida devolvemos null
+    */
+    if (pos < 0 || pos >= largo) {
+        return nullptr;
+    }
     NodoEstacion* actual = primero;
     int i = 0;
-
     while (actual != nullptr && i < pos) {
         actual = actual->siguiente;
         i++;
     }
-
     return actual->dato;
 }
-
 int ListaEstaciones::getLargo() {
     return largo;
 }

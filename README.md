@@ -71,7 +71,8 @@ Se establece como criterio de prioridad para las bicicletas mecánicas averiadas
 ### B.3) *Bicicletas con mas de X kilometros*
 **Complejidad temporal** : O(n)
 
-- utilizamos una lista enlazada para recorrer las bicicletas y mostrar por pantalla aquellas que superan la cantidad de kilómetros ingresada por el usuario.
+- Utilizamos un árbol binario de búsqueda (ABB) para almacenar las bicicletas ordenadas por su ID. Para esta funcionalidad recorremos el árbol de manera inorden y comparamos los kilómetros de cada bicicleta con el valor ingresado por el usuario. Mostramos aquellas bicicletas que superan dicho valor.
+La complejidad es O(n) porque, en el peor caso, debemos recorrer todos los nodos del árbol para verificar cuáles cumplen la condición.
 
 ### C.1) *Inserción de Bicicletas*
 **Complejidad temporal** : O(n)
@@ -132,6 +133,16 @@ Se establece como criterio de prioridad para las bicicletas mecánicas averiadas
 15. Camino no existente entre dos estaciones.
 16. Factor de carga de tabla hash.
 17. Cantidad de colisiones en tabla hash.
+18. Intento de eliminación de una bicicleta inexistente.
+19. Verificación del recorrido InOrden después de eliminar bicicletas.
+20. Extracción de bicicletas del min-heap respetando el orden de prioridad.
+21. Prueba de cola de espera con un solo usuario.
+22. Verificación del comportamiento de la cola después de quedar vacía.
+23. Prueba de capacidad máxima de la cola de prioridad.
+24. Camino más corto entre dos estaciones.
+25. Camino no existente entre dos estaciones.
+26. Factor de carga de la tabla hash.
+27. Cantidad de colisiones en la tabla hash.
 
 ## Pendiente de completar
 - Integración de la cola de espera con las estaciones.
@@ -151,7 +162,6 @@ sistema-bicicletas-publicas/
 │   ├── bicicletas/
 │   │   ├── AbbBicicletas.h
 │   │   ├── Bicicleta.h
-│   │   └── ListaBicicletas.h
 │   │
 │   ├── colas/
 │   │   ├── ColaEspera.h
@@ -177,7 +187,6 @@ sistema-bicicletas-publicas/
 │   ├── bicicletas/
 │   │   ├── AbbBicicletas.cpp
 │   │   ├── Bicicleta.cpp
-│   │   └── ListaBicicletas.cpp
 │   │
 │   ├── colas/
 │   │   ├── ColaEspera.cpp

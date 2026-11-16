@@ -3,7 +3,7 @@
 using namespace std;
 
 NodoABBBicicletas::NodoABBBicicletas(Bicicleta unaBici)
-    :dato(unaBici) //contruye el objeto bici con el dato q recibimos
+    :dato(unaBici) 
 {
     izquierdo = nullptr;
     derecho = nullptr;
@@ -102,4 +102,90 @@ void AbbBicicletas::liberarPostOrden(NodoABBBicicletas* actual){
         liberarPostOrden(actual->derecho);
         delete actual;
     }
+}
+void AbbBicicletas::bicicletasConMasDeXKm(int kilometros){
+    bicicletasConMasdeKmRecursivo(raiz,kilometros);
+}
+void AbbBicicletas::bicicletasConMasdeKmRecursivo(NodoABBBicicletas* actual, int kilometros){
+    if(actual!=nullptr){
+        bicicletasConMasdeKmRecursivo(actual->izquierdo,kilometros);
+        if(actual->dato.getKilometros() > kilometros){
+            cout<<"Id de bicicleta : " << actual->dato.getBiciId() <<endl;
+            cout<<"Estacion : " << actual->dato.getCodigoEstacion() <<endl;
+            cout<<"Estado : " << actual->dato.getEstado() <<endl;
+            cout<<"Kilometros : " << actual->dato.getKilometros() <<endl;
+        }
+        bicicletasConMasdeKmRecursivo(actual->derecho,kilometros);
+    }
+    // COMPLEJIDAD O(N) 
+}
+bool AbbBicicletas::obtenerBicicleta(int id, Bicicleta& bici) {
+    return obtenerBicicletaRecursivo(raiz, id, bici);
+}
+bool AbbBicicletas::obtenerBicicletaRecursivo(
+    NodoABBBicicletas* actual, int id, Bicicleta& bici) {
+    if (actual == nullptr) {
+        return false;
+    }
+    if (actual->dato.getBiciId() == id) {
+        bici = actual->dato;
+        return true;
+    }
+    if (id < actual->dato.getBiciId()) {
+        return obtenerBicicletaRecursivo(actual->izquierdo, id, bici);
+    }
+    return obtenerBicicletaRecursivo(actual->derecho, id, bici);
+}
+void AbbBicicletas::eliminarBicicleta(int id) {
+    raiz = eliminarRecursivo(raiz, id);
+}
+NodoABBBicicletas* AbbBicicletas::eliminarRecursivo(
+    NodoABBBicicletas* actual, int id) {
+    if (actual == nullptr) {
+        return nullptr;
+    }
+    if (id < actual->dato.getBiciId()) {
+        actual->izquierdo =
+            eliminarRecursivo(actual->izquierdo, id);
+    }
+    else if (id > actual->dato.getBiciId()) {
+        actual->derecho =
+            eliminarRecursivo(actual->derecho, id);
+    }
+    else {
+        //  nodo hoja
+        if (actual->izquierdo == nullptr &&
+            actual->derecho == nullptr) {
+
+            delete actual;
+            return nullptr;
+        }
+        //  nodo con un solo hijo
+        if (actual->izquierdo == nullptr) {
+            NodoABBBicicletas* aux = actual->derecho;
+            delete actual;
+            return aux;
+        }
+        if (actual->derecho == nullptr) {
+            NodoABBBicicletas* aux = actual->izquierdo;
+            delete actual;
+            return aux;
+        }
+        // nodo con dos hijos
+        NodoABBBicicletas* sucesor = buscarMenor(actual->derecho);
+        actual->dato = sucesor->dato;
+        actual->derecho =
+            eliminarRecursivo(
+                actual->derecho,
+                sucesor->dato.getBiciId()
+            );
+    }
+    return actual;
+}
+NodoABBBicicletas* AbbBicicletas::buscarMenor(
+    NodoABBBicicletas* actual) {
+    while (actual->izquierdo != nullptr) {
+        actual = actual->izquierdo;
+    }
+    return actual;
 }
