@@ -37,7 +37,7 @@ int TablaHash::funcionHash(string codigo) {
     int hash = 0;
     
     for (int i = 0; i < (int) codigo.length(); i++) {
-        hash = hash * 31 + codigo[i];
+        hash = hash * 31 + codigo[i]; // diff. hash para strings con mismos carácteres (ej: abc y bca)
     }
     
     return hash % capacidad;

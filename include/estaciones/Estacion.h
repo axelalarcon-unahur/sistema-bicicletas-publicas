@@ -39,5 +39,6 @@ public:
     void visitar();
     void setPadre(Estacion* padre);
     void resetearAtributosBusqueda();
+    bool estaLlena();
 };
 #endif

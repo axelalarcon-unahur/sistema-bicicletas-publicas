@@ -41,10 +41,10 @@ void GestorEstaciones::estacionesOrdenadasPorCapacidad() {
     Estacion** estaciones = tablaHash->estacionesOrdenadasPorCapacidad();
 
     cout << "--------------------------------------------" << endl;
-    cout << "Estaciones ordenadas por capacidad: " << endl;
+    cout << "Estaciones ordenadas por capacidad (menor a mayor): " << endl;
 
     for (int i = 0; i < tablaHash->getCantidadEstaciones(); i++) {
-        cout << i + 1 << ". " << estaciones[i]->getCodigo() << endl;
+        cout << i + 1 << ". " << estaciones[i]->getCodigo() << " " << estaciones[i]->getCapacidadAnclajes() << endl;
     }
 
     cout << "--------------------------------------------" << endl;
@@ -55,10 +55,10 @@ void GestorEstaciones::estacionesOrdenadasPorDisponibilidad() {
     Estacion** estaciones = tablaHash->estacionesOrdenadasPorDisponibilidad();
 
     cout << "--------------------------------------------" << endl;
-    cout << "Estaciones ordenadas por disponibilidad: " << endl;
+    cout << "Estaciones ordenadas por disponibilidad (menor a mayor): " << endl;
 
     for (int i = 0; i < tablaHash->getCantidadEstaciones(); i++) {
-        cout << i + 1 << ". " << estaciones[i]->getCodigo() << endl;
+        cout << i + 1 << ". " << estaciones[i]->getCodigo() << " " << estaciones[i]->getBicisDisponibles() << endl;
     }
 
     cout << "--------------------------------------------" << endl;
@@ -121,6 +121,11 @@ void GestorEstaciones::mostrarRestribucionBicicletas(string* codigos, int cantid
     }
     
     Estacion** estaciones = codigosAEstaciones(codigos, cantidadEstaciones);
+    if (estaciones == nullptr) {
+        cout << "Códigos de estación inválidos." << endl;
+        return;
+    }
+    
     Backtracker* b = new Backtracker(estaciones, cantidadEstaciones, capacidadCamion);
     ListaEstaciones** soluciones = b->encontrarSoluciones();
 
@@ -144,9 +149,51 @@ Estacion** GestorEstaciones::codigosAEstaciones(string* codigos, int n) {
 
     for (int i = 0; i < n; i++) {
         resultado[i] = tablaHash->buscarEstacion(codigos[i]);
+
+        if (resultado[i] == nullptr) {
+            delete[] resultado;
+            return nullptr;
+        }
     }
 
     return resultado;
+}
+
+void GestorEstaciones::devolverBicicletaAEstacion(string codigo) {
+    Estacion* estacion = tablaHash->buscarEstacion(codigo);
+
+    if (estacion == nullptr) {
+        cout << "Estación no encontrada para el código " << codigo << "." << endl;
+        return;
+    }
+    if (estacion->estaLlena()) {
+        cout << "La estacion está llena." << endl;
+        return;
+    }
+
+    int resultado = estacion->devolverBicicleta();
+    if (resultado != -1) {
+        cout << "Bicicleta asignada a " << resultado << endl;
+    }
+    else {
+        cout << "Bicicleta devuelta a estacion " << codigo << "." << endl;
+    }
+}
+
+void GestorEstaciones::retirarBicicletaDeEstacion(string codigo, int dni) {
+    Estacion* estacion = tablaHash->buscarEstacion(codigo);
+
+    if (estacion == nullptr) {
+        cout << "Estación no encontrada para el código " << codigo << "." << endl;
+        return;
+    }
+
+    if (!estacion->retirarBicicleta(dni)) {
+        cout << "No hay bicicletas disponibles en la estación " << codigo << ". Usuario encolado." << endl;
+    }
+    else {
+        cout << "Bicicleta retirada con éxito." << endl;
+    }
 }
 
 void GestorEstaciones::totalColisiones() {
@@ -154,5 +201,5 @@ void GestorEstaciones::totalColisiones() {
 }
 
 void GestorEstaciones::factorDeCarga() {
-    cout << "Factor de Carga: " << tablaHash->getFactorCarga() << endl;
+    cout << "Factor de Carga: " << tablaHash->getFactorCarga()  * 100 << "%" << endl;
 }

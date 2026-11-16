@@ -91,7 +91,7 @@ int Estacion::devolverBicicleta() {
         return cola->desencolar();
     }
     // si la estacion no esta llena, incrementa la cantidad
-    if (bicisDisponibles < capacidadAnclajes) {
+    if (!estaLlena()) {
         bicisDisponibles++;
     }
 
@@ -117,4 +117,8 @@ Estacion* Estacion::getPadre() {
 }
 bool Estacion::isVisitada() {
     return visitada;
+}
+
+bool Estacion::estaLlena() {
+    return bicisDisponibles == capacidadAnclajes;
 }
