@@ -6,6 +6,10 @@ ColaPrioridadBicicletas::ColaPrioridadBicicletas(int cantMax) {
     this->cantMax = cantMax;
     cantBicicletasGuardadas = 0;
     heap = new Bicicleta*[cantMax];
+    // inicializamos las posiciones en null
+    for (int i = 0; i < cantMax; i++) {
+        heap[i] = nullptr;
+    }
 }
 int ColaPrioridadBicicletas::calcularPrioridad(Bicicleta* unaBici){
     if(unaBici->getTipo() == "Electrica"){
@@ -43,15 +47,16 @@ void ColaPrioridadBicicletas::insertarUnaBici(Bicicleta unaBici){
    }
 }
 bool ColaPrioridadBicicletas::extraerBicicletaConMayorPrioridad(Bicicleta& bici){
-    if(cantBicicletasGuardadas == 0){
-        return false; 
+     if (cantBicicletasGuardadas == 0) {
+        return false;
     }
-    bici = *heap[0]; 
-    delete heap[0] ; 
-    cantBicicletasGuardadas --; 
-    if(cantBicicletasGuardadas == 0){
+    bici = *heap[0];
+    delete heap[0];
+    cantBicicletasGuardadas--;
+    if (cantBicicletasGuardadas == 0) {
+        heap[0] = nullptr;
         return true;
-    } 
+    }
     heap[0] = heap[cantBicicletasGuardadas];
     heap[cantBicicletasGuardadas] = nullptr;
     int i = 0;
