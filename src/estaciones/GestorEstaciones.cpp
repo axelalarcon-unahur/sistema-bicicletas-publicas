@@ -121,6 +121,11 @@ void GestorEstaciones::mostrarRestribucionBicicletas(string* codigos, int cantid
     }
     
     Estacion** estaciones = codigosAEstaciones(codigos, cantidadEstaciones);
+    if (estaciones == nullptr) {
+        cout << "Códigos de estación inválidos." << endl;
+        return;
+    }
+    
     Backtracker* b = new Backtracker(estaciones, cantidadEstaciones, capacidadCamion);
     ListaEstaciones** soluciones = b->encontrarSoluciones();
 
@@ -144,6 +149,11 @@ Estacion** GestorEstaciones::codigosAEstaciones(string* codigos, int n) {
 
     for (int i = 0; i < n; i++) {
         resultado[i] = tablaHash->buscarEstacion(codigos[i]);
+
+        if (resultado[i] == nullptr) {
+            delete[] resultado;
+            return nullptr;
+        }
     }
 
     return resultado;
@@ -177,7 +187,7 @@ void GestorEstaciones::retirarBicicletaDeEstacion(string codigo, int dni) {
         cout << "Estación no encontrada para el código " << codigo << "." << endl;
         return;
     }
-    
+
     if (!estacion->retirarBicicleta(dni)) {
         cout << "No hay bicicletas disponibles en la estación " << codigo << ". Usuario encolado." << endl;
     }
