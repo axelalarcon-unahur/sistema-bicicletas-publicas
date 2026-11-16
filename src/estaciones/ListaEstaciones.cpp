@@ -129,7 +129,7 @@ void ListaEstaciones::mostrarCamino() {
 
     while (actual->siguiente != nullptr) {
         actual = actual->siguiente;
-        cout << "-> " << actual->dato->getCodigo();
+        cout << " -> " << actual->dato->getCodigo();
     }
 
     cout << endl;

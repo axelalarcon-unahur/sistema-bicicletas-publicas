@@ -22,8 +22,14 @@ Los pasos para ejecutar el proyecto son:
 .\prueba.exe
 ```
 # Descripción de los módulos:
+## Estaciones
+- **Estacion:** Representa una estación base con sus atributos y algunos métodos de utilidad.
+- **GestorEstaciones:** Se encarga de gestionar las estaciones e informar al usuario de los resultados de cualquier operación que el mismo solicite sobre las mismas. 
+- **TablaHash:** Almacena las estaciones en una tabla hash y permite la búsqueda, inserción, eliminación, entre otras operaciones, de estaciones.
+- **GrafoEstaciones:** Tiene los métodos necesarios para ejecutar BFS sobre las estaciones y encontrar el camino más corto entre dos de ellas.
+- **ListaEstaciones**: Clase auxiliar que almacena una lista de estaciones para cualquier otra operación o clase que la necesite. 
 ## Viajes
-- **Viaje:** Representa un viaje realizado por usuario(uno unico). Este mismo
+- **Viaje:** Representa un viaje realizado por usuario (uno unico). Este mismo
 tiene un identificador del viaje, la bicicleta que se utilizo, el DNI del usuario, las estaciones de origen y destino, la fecha y la duración.
 - **ListaViajes:** Administra los viajes mediante una lista enlazada.
 Permite agregar viajes, contar los viajes realizados desde una estacion
@@ -47,6 +53,9 @@ cantidad de X kilometros ingresados por el usuario.
 - **AbbBicicletas:** implementa un árbol binario de búsqueda que almacena las bicicletas
 ordenadas por su identificador. Permite insertar bicicletas, buscar y mostrar una bicicleta mediante ID, listar todas las biciletas en orden creciente (menor a mayor), contar las bicicletas averiadas y calcular la altura del árbol. Tambien libera la memoria dinámica mediante un recorrido postOrden.
 
+## Backtracking
+- **Backtracker**: Se encarga de ejecutar el algoritmo de backtracking y para ello implementa una serie de atributos y métodos necesarios.
+
 ## Criterio de Prioridad del min-heap
 Se establece como criterio de prioridad para las bicicletas mecánicas averiadas la cantidad de kilómetros recorridos. Aquellas que superan los 5000 km reciben prioridad 2, mientras que las que no superan ese valor reciben prioridad 3. Las bicicletas eléctricas averiadas mantienen prioridad 1, según lo establecido en la consigna.
 
@@ -54,8 +63,8 @@ Se establece como criterio de prioridad para las bicicletas mecánicas averiadas
 - **Prioridad 2:** bicicletas mecánicas averiadas con más de 5000 km.
 - **Prioridad 3:** bicicletas mecánicas averiadas con 5000 km o menos.
 
-## Consigna de Análisis - Punto A
-- Para 11 estaciones de prueba con una tabla hash de capacidad máxima 16, ocurrieron 7 colisiones con un factor de carga del 68%.
+## Consigna de Análisis - Punto A.
+- Para 14 estaciones de prueba con una tabla hash con capacidad inicial de 11, ocurrieron 10 colisiones con un factor de carga del 87.5%.
 
 ## Complejidad Temporal - Punto B.
 
@@ -73,6 +82,8 @@ Se establece como criterio de prioridad para las bicicletas mecánicas averiadas
 
 - Utilizamos un árbol binario de búsqueda (ABB) para almacenar las bicicletas ordenadas por su ID. Para esta funcionalidad recorremos el árbol de manera inorden y comparamos los kilómetros de cada bicicleta con el valor ingresado por el usuario. Mostramos aquellas bicicletas que superan dicho valor.
 La complejidad es O(n) porque, en el peor caso, debemos recorrer todos los nodos del árbol para verificar cuáles cumplen la condición.
+
+## Complejidad Temporal - Punto C.
 
 ### C.1) *Inserción de Bicicletas*
 **Complejidad temporal** : O(n)
@@ -114,6 +125,10 @@ La complejidad es O(n) porque, en el peor caso, debemos recorrer todos los nodos
 
 - Utilizamos un min-heap que permite mantener la prioridad de las bicicletas según su nivel de urgencia. Al insertar o extraer una bicicleta, puede ser necesario reorganizar los elementos recorriendo los niveles del heap, cuya altura es logarítmica.
 
+## Complejidad Temporal - Punto D.
+**Complejidad Temporal**: O($2^n$).
+
+- En el peor caso, hay que verificar todos los subconjuntos de estaciones posibles, y por definición matemática, un conjunto de elementos tiene $2^n$ subconjuntos posibles.
 
 # Pruebas Realizadas:
 1. Conteo de viajes por estación y rango de fechas.
@@ -145,8 +160,6 @@ La complejidad es O(n) porque, en el peor caso, debemos recorrer todos los nodos
 27. Cantidad de colisiones en la tabla hash.
 
 ## Pendiente de completar
-- Integración de la cola de espera con las estaciones.
-- Redistribución mediante backtracking.
 - Diagrama de clases UML.
 - Menú definitivo por consola.
 - Verificación de ausencia de pérdidas de memoria.
@@ -155,13 +168,17 @@ La complejidad es O(n) porque, en el peor caso, debemos recorrer todos los nodos
 ```text
 
 sistema-bicicletas-publicas/
-│
+├── entradas/
+│       ├── bicicletas.xt
+│       ├── ciclovias.txt
+│       ├── estaciones.txt
+│       └── viajes.txt
 ├── documentacion/
-│      ├── diagramaUML.png
+│       └─ diagramaUML.png
 ├── include/
 │   ├── bicicletas/
 │   │   ├── AbbBicicletas.h
-│   │   ├── Bicicleta.h
+│   │   └── Bicicleta.h
 │   │
 │   ├── colas/
 │   │   ├── ColaEspera.h
@@ -176,6 +193,9 @@ sistema-bicicletas-publicas/
 │   │   ├── NodoEstacion.h
 │   │   └── TablaHash.h
 │   │
+│   ├── lector/
+│   │   └── LectorArchivos.h     
+│   │ 
 │   ├── redistribucion/
 │   │   └── Backtracker.h
 │   │
@@ -186,7 +206,7 @@ sistema-bicicletas-publicas/
 ├── src/
 │   ├── bicicletas/
 │   │   ├── AbbBicicletas.cpp
-│   │   ├── Bicicleta.cpp
+│   │   └── Bicicleta.cpp
 │   │
 │   ├── colas/
 │   │   ├── ColaEspera.cpp
@@ -200,6 +220,9 @@ sistema-bicicletas-publicas/
 │   │   ├── ListaEstaciones.cpp
 │   │   └── TablaHash.cpp
 │   │
+│   ├── lector/
+│   │   └── LectorArchivos.cpp     
+│   │ 
 │   ├── redistribucion/
 │   │   └── Backtracker.cpp
 │   │

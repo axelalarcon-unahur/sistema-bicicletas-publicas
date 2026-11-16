@@ -25,6 +25,8 @@ public:
     void caminoMasCorto(string origen, string destino);
     void agregarCiclovia(string a, string b);
     void mostrarRestribucionBicicletas(string* codigos, int cantidadEstaciones, int capacidadCamion);
+    void devolverBicicletaAEstacion(string codigo);
+    void retirarBicicletaDeEstacion(string codigo, int dni);
     void totalColisiones();
     void factorDeCarga();
 };

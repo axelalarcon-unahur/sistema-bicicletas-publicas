@@ -149,6 +149,43 @@ Estacion** GestorEstaciones::codigosAEstaciones(string* codigos, int n) {
     return resultado;
 }
 
+void GestorEstaciones::devolverBicicletaAEstacion(string codigo) {
+    Estacion* estacion = tablaHash->buscarEstacion(codigo);
+
+    if (estacion == nullptr) {
+        cout << "Estación no encontrada para el código " << codigo << "." << endl;
+        return;
+    }
+    if (estacion->estaLlena()) {
+        cout << "La estacion está llena." << endl;
+        return;
+    }
+
+    int resultado = estacion->devolverBicicleta();
+    if (resultado != -1) {
+        cout << "Bicicleta asignada a " << resultado << endl;
+    }
+    else {
+        cout << "Bicicleta devuelta a estacion " << codigo << "." << endl;
+    }
+}
+
+void GestorEstaciones::retirarBicicletaDeEstacion(string codigo, int dni) {
+    Estacion* estacion = tablaHash->buscarEstacion(codigo);
+
+    if (estacion == nullptr) {
+        cout << "Estación no encontrada para el código " << codigo << "." << endl;
+        return;
+    }
+    
+    if (!estacion->retirarBicicleta(dni)) {
+        cout << "No hay bicicletas disponibles en la estación " << codigo << ". Usuario encolado." << endl;
+    }
+    else {
+        cout << "Bicicleta retirada con éxito." << endl;
+    }
+}
+
 void GestorEstaciones::totalColisiones() {
     cout << "Colisiones totales: " << tablaHash->getTotalColisiones() << endl;;
 }
