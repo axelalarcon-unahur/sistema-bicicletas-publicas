@@ -29,7 +29,7 @@ public:
     int calcularAlturaArbol();
     void bicicletasConMasDeXKm(int kilometros);
     bool obtenerBicicleta(int id, Bicicleta& unaBici);
-    void eliminarBicicleta(int id); // eliminar bicicleta mediante ID
+    void eliminarBicicleta(int id); 
     AbbBicicletas();
     ~AbbBicicletas();
 };

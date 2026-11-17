@@ -7,8 +7,8 @@ struct NodoEspera {
 };
 class ColaEspera{
 private:
-        NodoEspera* primero; // usuario que lleva mas tiempo esperando
-        NodoEspera* ultimo; // usuario que llego ultimo
+        NodoEspera* primero; 
+        NodoEspera* ultimo; 
 public:
         ColaEspera();
         ~ColaEspera();

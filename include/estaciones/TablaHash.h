@@ -13,7 +13,6 @@ private:
     int capacidad; // tamaño de hash table
     Estacion* tombstone; // marca para el borrado
     int totalColisiones;
-
     int funcionHash(string codigo);
     bool hayEstacion(int posicion);
     void cambiarCapacidad(int nuevaCapacidad);

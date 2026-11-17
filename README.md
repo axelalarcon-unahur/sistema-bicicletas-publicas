@@ -16,11 +16,11 @@ Los pasos para ejecutar el proyecto son:
 ## Windows
 1. Abrimos la terminal de powershell y ejecutamos:
 ```text
-& "C:\msys64\ucrt64\bin\g++.exe" -std=c++17 -Wall -Wextra -Iinclude (Get-ChildItem .\src -Recurse -Filter *.cpp | Where-Object { $_.DirectoryName -notlike '*\pruebas*' } | ForEach-Object FullName) -o .\prueba.exe
+& "C:\msys64\ucrt64\bin\g++.exe" -std=c++17 -Wall -Wextra -Iinclude (Get-ChildItem .\src -Recurse -Filter *.cpp | Where-Object { $_.DirectoryName -notlike '*\pruebas*' } | ForEach-Object FullName) -o .\main.exe
 ```
 2. Luego hacemos:
 ```text
-.\prueba.exe
+.\main.exe
 ```
 ## Linux
 1. Abrir la terminal y ejecutar el siguiente comando:
@@ -98,12 +98,6 @@ Se establece como criterio de prioridad para las bicicletas mecánicas averiadas
 
 - Utilizamos una lista enlazada para buscar los viajes cuyo DNI coincida con el ingresado por el usuario y sumar la duración de esos viajes. Para hacerlo, debemos recorrer la lista.
 
-### B.3) *Bicicletas con mas de X kilometros*
-**Complejidad temporal** : O(n)
-
-- Utilizamos un árbol binario de búsqueda (ABB) para almacenar las bicicletas ordenadas por su ID. Para esta funcionalidad recorremos el árbol de manera inorden y comparamos los kilómetros de cada bicicleta con el valor ingresado por el usuario. Mostramos aquellas bicicletas que superan dicho valor.
-La complejidad es O(n) porque, en el peor caso, debemos recorrer todos los nodos del árbol para verificar cuáles cumplen la condición.
-
 ## Complejidad Temporal - Punto C.
 Si se insertaran las bicicletas ordenadas por ID, cada bicicleta se insertaría a la derecha de la anterior debido a la definición de ABB. El comportamiento resultante es idéntico al de una lista enlazada. Esto hace que la búsqueda sea de O(n), y que la altura sea igual a la cantidad de bicicletas insertadas.
 
@@ -145,7 +139,13 @@ En un ejemplo de 5 bicicletas, con ID's del 1 al 5, insertadas en orden ascenden
 
 - Recorremos los nodos del arbol para calcular la altura de sus subarboles izquierdo y derecho para asi obtener la mayor altura.
 
-### C.6) *Liberación de memoria*
+### C.6) *Bicicleta con mas de X Kilometros*
+**Complejidad temporal** : O(n)
+
+- Se recorre el árbol completo para revisar los kilómetros de cada bicicleta, ya que está ordenado por ID y no por kilometraje.
+En el peor caso, se visitan los n nodos del árbol para identificar cuáles superan el kilometraje ingresado.
+
+### C.7) *Liberación de memoria*
 **Complejidad temporal** : O(n)
 
 - Utilizamos un recorrido postOrden para liberar todos los nodos del árbol mediante delete.
