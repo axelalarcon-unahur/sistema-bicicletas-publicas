@@ -42,7 +42,7 @@ o de forma alternativa, el siguiente comando:
 - **GestorEstaciones:** Se encarga de gestionar las estaciones e informar al usuario de los resultados de cualquier operación que el mismo solicite sobre las mismas. 
 - **TablaHash:** Almacena las estaciones en una tabla hash mediante open addressing con sondeo lineal. Permite la búsqueda, inserción, eliminación, entre otras operaciones, de estaciones.
 - **GrafoEstaciones:** Tiene los métodos necesarios para ejecutar BFS sobre las estaciones y encontrar el camino más corto entre dos de ellas.
-- **ListaEstaciones**: Clase auxiliar que almacena una lista de estaciones para cualquier otra operación o clase que la necesite. 
+- **ListaEstaciones**: Clase auxiliar que almacena una lista enlazada de estaciones para cualquier otra operación o clase que la necesite. 
 
 ## Viajes
 - **Viaje:** Representa un viaje realizado por usuario (uno unico). Este mismo
@@ -85,6 +85,8 @@ Se establece como criterio de prioridad para las bicicletas mecánicas averiadas
 ## Consigna de Análisis - Punto A.
 - Para 14 estaciones de prueba con una tabla hash con capacidad inicial de 11, ocurrieron 10 colisiones con un factor de carga del 87.5%.
 
+- Para búsqueda, inserción y eliminación de elementos de una tabla de hash con sondeo lineal, la complejidad es de O(1) en el caso promedio, y de O(n) en el peor caso. Cuando hay pocas colisiones, el factor de carga no es muy elevado y las claves están distribuidas uniformemente, se requieren pocos pasos antes de encontrar la posición de la clave. En cambio, si hay muchas colisiones o un elevado factor de carga, el sondeo puede ser de O(n) por la mayor cantidad de agrupamientos.
+
 ## Complejidad Temporal - Punto B.
 
 ### B.1)  *Cantidad de viajes por estacion y rango de fechas* 
@@ -103,6 +105,20 @@ Se establece como criterio de prioridad para las bicicletas mecánicas averiadas
 La complejidad es O(n) porque, en el peor caso, debemos recorrer todos los nodos del árbol para verificar cuáles cumplen la condición.
 
 ## Complejidad Temporal - Punto C.
+Si se insertaran las bicicletas ordenadas por ID, cada bicicleta se insertaría a la derecha de la anterior debido a la definición de ABB. El comportamiento resultante es idéntico al de una lista enlazada. Esto hace que la búsqueda sea de O(n), y que la altura sea igual a la cantidad de bicicletas insertadas.
+
+En un ejemplo de 5 bicicletas, con ID's del 1 al 5, insertadas en orden ascendente:
+```
+  1
+ / \
+    2
+   / \
+      3
+     / \
+        4
+       / \
+          5
+```
 
 ### C.1) *Inserción de Bicicletas*
 **Complejidad temporal** : O(n)
@@ -147,7 +163,7 @@ La complejidad es O(n) porque, en el peor caso, debemos recorrer todos los nodos
 ## Complejidad Temporal - Punto D.
 **Complejidad Temporal**: O($2^n$).
 
-- En el peor caso, hay que verificar todos los subconjuntos de estaciones posibles, y por definición matemática, un conjunto de elementos tiene $2^n$ subconjuntos posibles.
+- En el peor caso, hay que verificar todos los subconjuntos de estaciones posibles (conjunto de partes), y por definición matemática, un conjunto de elementos tiene $2^n$ subconjuntos posibles. Si se considera un árbol de decisiones binario, cada estación agrega un nuevo nivel completo al árbol, duplicando la cantidad de nodos del mismo, por tanto generando una complejidad de O($2^n$). La "poda" del árbol permite optimizar el algoritmo, pero no mejorar su rendimiento en el peor caso.
 
 # Pruebas Realizadas:
 1. Conteo de viajes por estación y rango de fechas.
