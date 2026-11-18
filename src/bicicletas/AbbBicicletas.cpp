@@ -117,7 +117,6 @@ void AbbBicicletas::bicicletasConMasdeKmRecursivo(NodoABBBicicletas* actual, int
         }
         bicicletasConMasdeKmRecursivo(actual->derecho,kilometros);
     }
-    // COMPLEJIDAD O(N) 
 }
 bool AbbBicicletas::obtenerBicicleta(int id, Bicicleta& bici) {
     return obtenerBicicletaRecursivo(raiz, id, bici);

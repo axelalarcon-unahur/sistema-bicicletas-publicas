@@ -9,7 +9,7 @@ class LectorArchivos {
         GestorEstaciones* gestor;
         AbbBicicletas* abbBicicletas;
         ListaViajes* listaViajes;
-        
+    
         void leerEstaciones();
         void leerBicicletas();
         void leerViajes();

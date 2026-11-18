@@ -10,9 +10,7 @@ class GestorEstaciones {
 private:
     TablaHash* tablaHash;
     GrafoEstaciones* grafo;
-
     Estacion** codigosAEstaciones(string* codigos, int n);
-    
 public:
     GestorEstaciones(int cantidadInicial);
     ~GestorEstaciones();

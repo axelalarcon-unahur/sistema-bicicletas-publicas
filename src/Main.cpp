@@ -8,11 +8,10 @@
 #include "lector/LectorArchivos.h"
 
 using namespace std;
-// ----------  BICICLETAS ----------
 void menuBicicletas(AbbBicicletas& arbol) {
     int opcionElegida;
     do {
-        cout << "\n===== GESTION DE BICICLETAS =====" << endl;
+        cout << " Menu BICICLETAS " << endl;
         cout << "1. Mostrar bicicletas con mas de X kilometros" << endl;
         cout << "2. Buscar bicicleta mediante ID" << endl;
         cout << "3. Agregar bicicleta" << endl;
@@ -83,12 +82,10 @@ void menuBicicletas(AbbBicicletas& arbol) {
         }
     } while (opcionElegida != 0);
 }
-
-// ----------  VIAJES ----------
 void menuViajes(ListaViajes& listaViajes) {
     int opcionElegida;
     do {
-        cout << "\n===== GESTION DE VIAJES =====" << endl;
+        cout << "Menu VIAJES " << endl;
         cout << "1. Cantidad de viajes por estacion y rango de fechas" << endl;
         cout << "2. Minutos pedaleados por usuario" << endl;
         cout << "0. Volver al menu principal" << endl;
@@ -129,11 +126,10 @@ void menuViajes(ListaViajes& listaViajes) {
         }
     } while (opcionElegida != 0);
 }
-// ----------  COLAS ----------
 void menuColas(AbbBicicletas& arbol, ColaPrioridadBicicletas& cola, GestorEstaciones& gestor) {
     int opcionElegida;
     do {
-        cout << "\n===== GESTION DE COLAS =====" << endl;
+        cout << "Menu COLAS " << endl;
         cout << "1. Ingresar bicicleta por ID al taller de reparación." << endl;
         cout << "2. Extraer bicicleta con mayor urgencia del taller al taller de reparación." << endl;
         cout << "3. Devolver bicicleta a estación." << endl;
@@ -191,12 +187,10 @@ void menuColas(AbbBicicletas& arbol, ColaPrioridadBicicletas& cola, GestorEstaci
         }
     } while (opcionElegida != 0);
 }
-
-// ---------- ESTACIONES ----------
 void menuEstaciones(GestorEstaciones& gestor) {
     int opcionElegida;
     do {
-        cout << "\n===== GESTION DE ESTACIONES =====" << endl;
+        cout << " Menu DE ESTACIONES " << endl;
         cout << "1. Buscar una estacion" << endl;
         cout << "2. Agregar estacion" << endl;
         cout << "3. Eliminar estación" << endl;
@@ -282,13 +276,12 @@ void menuEstaciones(GestorEstaciones& gestor) {
         }
     } while (opcionElegida != 0);
 }
-// ---------- REDISTRIBUCION ----------
 void menuRedistribucion(GestorEstaciones& gestor) {
     int capacidadCamion;
     int cantidadEstaciones;
     int i = 0;
 
-    cout << "\n===== REDISTRIBUCION DE BICICLETAS =====" << endl;
+    cout << "Redistribucion de Bicicletas " << endl;
     cout << "Ingrese la cantidad de estaciones a las cuales redistribuir bicicletas: ";
     cin >> cantidadEstaciones;
     cout << "Ingrese la capacidad del camion: ";
@@ -317,7 +310,7 @@ int main() {
 
     int opcionElegida;
     do {
-        cout << "\n===== SISTEMA DE BICICLETAS PUBLICAS =====" << endl;
+        cout << "--- SISTEMA DE BICICLETAS PUBLICAS ---- " << endl;
         cout << "1. Gestion de bicicletas" << endl;
         cout << "2. Gestion de viajes" << endl;
         cout << "3. Gestion de colas" << endl;
