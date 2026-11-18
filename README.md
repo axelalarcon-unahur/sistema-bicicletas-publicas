@@ -55,9 +55,7 @@ usuario segun su DNI.
 ## Bicicletas
 - **Bicicleta:** Representa una bicicleta. Tiene un identificador, estacion, tipo,
 estado y cantidad de kilometros que recorrio.
-- **ListaBicicletas:** Administra las bicicletas mediante una lista enlazada.
-Permite agregar nuevas bicicletas y mostrar aquellas que superan una
-cantidad de X kilometros ingresados por el usuario.
+
 
 ## Cola Espera
 - **ColaEspera:** implementa una cola FIFO (primero que entra, primero que sale) mediante nodos enlazados. Podemos encolar usuarios y desencolar al primero que ingreso a la espera.
